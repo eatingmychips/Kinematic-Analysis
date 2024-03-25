@@ -166,6 +166,11 @@ def abs_vel(part):
                 vel.append(0)
     return vel
 
+def Changes():
+    #These will be the changes in velocity
+    ret = 0
+    return ret
+
 
 vel_left1p = abs_vel(left1)
 length = len(vel_left1p)
