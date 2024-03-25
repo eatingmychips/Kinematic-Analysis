@@ -158,6 +158,8 @@ def abs_vel(part):
             delta = np.subtract(part[i], part[i-1])
             norm = np.linalg.norm(delta)
             #HERE WE FUCK THE VELOCITY UP 
+            #AND we're gonna do a whole bunch of other crazy stuff 
+            #And we're gonna do even more crazy stuff
             if norm > 2.2: 
                 vel.append(1)
             else: 
