@@ -153,18 +153,21 @@ parts = [left1, left2, left3,
 
 def abs_vel(part): 
     vel =[]
+    rawvel = []
     for i in size:
         if i > 0: 
             delta = np.subtract(part[i], part[i-1])
             norm = np.linalg.norm(delta)
-            if norm > 2.2: 
-                vel.append(1)
-            else: 
-                vel.append(0)
+            rawvel.append(norm)
 
     sos = signal.butter(10 , 12, 'lp', fs = 100, output = 'sos')
-    vel = signal.sosfilt(sos, vel)
-    
+    rawvel = signal.sosfilt(sos, rawvel)
+    for i in rawvel:
+        if i > 2: 
+            vel.append(1)
+        else: 
+            vel.append(0)
+
     return vel
 
 
