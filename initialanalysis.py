@@ -157,19 +157,16 @@ def abs_vel(part):
         if i > 0: 
             delta = np.subtract(part[i], part[i-1])
             norm = np.linalg.norm(delta)
-            #HERE WE FUCK THE VELOCITY UP 
-            #AND we're gonna do a whole bunch of other crazy stuff 
-            #And we're gonna do even more crazy stuff
             if norm > 2.2: 
                 vel.append(1)
             else: 
                 vel.append(0)
+
+    sos = signal.butter(10 , 12, 'lp', fs = 100, output = 'sos')
+    vel = signal.sosfilt(sos, vel)
+    
     return vel
 
-def Changes():
-    #These will be the changes in velocity
-    ret = 0
-    return ret
 
 
 vel_left1p = abs_vel(left1)
