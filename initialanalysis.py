@@ -185,7 +185,10 @@ vel_right3p = np.subtract(abs_vel(right3), [0.25]*length)
 
 
 
-#Here we calculate the angle offset using top and middle 
+##### HERE WE CALCULATE ANGLE OFFSET AND ROTATE THE BODY #####
+
+
+#Calculate the angle offset using top and middle 
 diff = []
 offset = []
 for i in size: 
@@ -217,6 +220,15 @@ def body_plot():
         for i in range(len(left1[0:1000])): 
             plt.plot(part[0:1000][i][0],part[0:1000][i][1], 'o')
 
+def angle_plot(offset): 
+    for i in size: 
+        offset[i] = offset[i]*180/(np.pi)
+
+    plt.plot(size, offset, '-')
+    plt.title('Body Angle vs Time')
+    plt.ylabel('Degrees')
+    plt.xlabel('Time')
+    plt.show()
 
 
 def dot_plot_left():
@@ -290,8 +302,9 @@ def gait_vel_plotting(fig):
 
 
 fig = plt.figure()
-line_plotting_example(fig)
-gait_vel_plotting(fig)
+#line_plotting_example(fig)
+#gait_vel_plotting(fig)
+angle_plot(offset)
 plt.show()
 
 
