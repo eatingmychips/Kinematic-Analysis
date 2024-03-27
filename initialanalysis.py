@@ -9,9 +9,10 @@ from scipy import signal
 
 #Path to csv file to read in 
 
-#
-#filename = r"C:\Users\lachl\OneDrive\Thesis\Data\DLCdata\45degrees_1DLC_resnet50_BeetleInclinedAnalysisMar1shuffle1_100000.csv"
-filename = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_Attempt2_Sorted\0degrees\movie20240315_0degrees (2)DLC_resnet50_Attempt2DLCMar15shuffle1_100000.csv"
+
+#filename = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_Attempt2_Sorted\0degrees\movie20240315_0degrees (2)DLC_resnet50_Attempt2DLCMar15shuffle1_100000.csv"
+
+filename = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_Attempt2_Sorted\0degrees\movie20240315_0degreesDLC_resnet50_Attempt2DLCMar15shuffle1_100000.csv"
 
 #Read the csv file 
 df = pd.read_csv(filename, skiprows=0)
@@ -134,7 +135,8 @@ middley = df.get('middley').to_numpy()
 middle = []
 for i in size: 
     middle.append([middlex[i], middley[i]])
-    
+
+
 
 #Read in bottom 
 bottomx = df.get('bottomx').to_numpy()
@@ -150,6 +152,23 @@ parts = [left1, left2, left3,
 
 
 ##### ABSOLUTE VELOCITY CALCULATIONS 
+
+def body_vel(middle):
+    body_v = []
+    sos = signal.butter(2, 4, 'lp', fs = 100, output = 'sos')
+    for i in size: 
+        if i > 0: 
+            delta = np.subtract(middle[i], middle[i-1])
+            norm = np.linalg.norm(delta)
+            body_v.append(norm)
+        
+
+    body_v = signal.sosfilt(sos,body_v)
+
+    return body_v
+
+body_velocity = body_vel(middle)
+
 
 def abs_vel(part): 
     vel =[]
@@ -220,15 +239,13 @@ def body_plot():
         for i in range(len(left1[0:1000])): 
             plt.plot(part[0:1000][i][0],part[0:1000][i][1], 'o')
 
-def angle_plot(offset): 
+def angle_plot(offset, fig): 
     for i in size: 
         offset[i] = offset[i]*180/(np.pi)
-
-    plt.plot(size, offset, '-')
-    plt.title('Body Angle vs Time')
-    plt.ylabel('Degrees')
-    plt.xlabel('Time')
-    plt.show()
+    ax3 = fig.add_subplot(2,2,3)
+    ax3.plot(size, offset, '-')
+    ax3.set_xlim(250,750)
+    ax3.title.set_text('Body Angle vs Time')
 
 
 def dot_plot_left():
@@ -264,8 +281,12 @@ def line_plotting_example(fig):
     
     sos = signal.butter(10 , 12, 'lp', fs = 100, output = 'sos')
     left1_1 = signal.sosfilt(sos,left1_1)
+    left2_1 = signal.sosfilt(sos, left2_1)
+    left3_1 = signal.sosfilt(sos, left3_1)
     right1_1 = signal.sosfilt(sos, right1_1)
-    ax2 = fig.add_subplot(2,1,1)
+    right2_1 = signal.sosfilt(sos, right2_1)
+    right3_1 = signal.sosfilt(sos, right3_1)
+    ax2 = fig.add_subplot(2,2,1)
     ax2.plot(size, left1_1, '-', color = 'blue')
     ax2.plot(size, left2_1, '-', color = 'red')
     ax2.plot(size, left3_1, '-', color = 'blue')
@@ -273,7 +294,7 @@ def line_plotting_example(fig):
     ax2.plot(size, right1_1, '-', color = 'red')
     ax2.plot(size, right2_1, '-', color = 'blue')
     ax2.plot(size, right3_1, '-', color = 'red')
-    ax2.set_xlim(400,800)
+    ax2.set_xlim(250,750)
     ax2.set_ylim(-100,100)
     ax2.title.set_text('Foot Vertical Displacement vs Time')
 
@@ -281,7 +302,7 @@ def line_plotting_example(fig):
 
 
 def gait_vel_plotting(fig):
-    ax1 = fig.add_subplot(2,1,2)
+    ax1 = fig.add_subplot(2,2,2)
     ax1.hlines(vel_left1p, range(length), range(1, length+1), color = 'red')
     ax1.hlines(vel_left2p, range(length), range(1, length+1), color = 'blue')
     ax1.hlines(vel_left3p, range(length), range(1, length+1), color = 'red')
@@ -300,14 +321,19 @@ def gait_vel_plotting(fig):
     ax1.set_xlim(400,800)
     ax1.title.set_text('Foot Abs Velocty Vs Time')
 
+def body_vel_plotting(fig, body_velocity): 
+    ax4 = fig.add_subplot(2,2,4)
+    ax4.plot(range(len(body_velocity)), body_velocity)
+    ax4.title.set_text('Body Velocity')
+    ax4.set_xlim(250, 750)   
+    ax4.set_ylim(-1,5)   
+
 
 fig = plt.figure()
-#line_plotting_example(fig)
-#gait_vel_plotting(fig)
-angle_plot(offset)
+line_plotting_example(fig)
+gait_vel_plotting(fig)
+angle_plot(offset, fig)
+body_vel_plotting(fig, body_velocity)
 plt.show()
 
 
-#HOW GAIT CHANGES WITH WALKING ANGLE 
-#WHEN INCLINED, which direction does insect prefer to walk, does it prefer
-#to turn in a specific durection, walk upwards etc 
