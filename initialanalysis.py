@@ -234,10 +234,6 @@ for part in parts:
 
 #Do walking gaits during turning and straight walking. 
 
-def body_plot():
-    for part in parts: 
-        for i in range(len(left1[0:1000])): 
-            plt.plot(part[0:1000][i][0],part[0:1000][i][1], 'o')
 
 def angle_plot(offset, fig): 
     for i in size: 
@@ -246,20 +242,6 @@ def angle_plot(offset, fig):
     ax3.plot(size, offset, '-')
     ax3.set_xlim(250,750)
     ax3.title.set_text('Body Angle vs Time')
-
-
-def dot_plot_left():
-    for i in size: 
-        plt.plot(i, left3[i][1]-middle[i][1], 'o', color = 'red')
-        plt.plot(i, left2[i][1]-middle[i][1] + 23, 'o', color = 'blue')
-        plt.plot(i, left1[i][1]-middle[i][1] + 52, 'o', color = 'green')
-
-        plt.plot(i, right1[i][1] - middle[i][1] + 25, 'o', color = 'yellow')
-        plt.plot(i, right2[i][1] - middle[i][1], 'o', color = 'purple')
-        plt.plot(i, right3[i][1] - middle[i][1] - 23, 'o', color = 'orange')
-
-    plt.ylim(-30,40)
-    plt.show()
 
 
 def line_plotting_example(fig):
