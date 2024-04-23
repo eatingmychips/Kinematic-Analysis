@@ -224,8 +224,6 @@ def part_rotation(parts):
             part[i] = rotation(offset[i],part[i])
             part[i][1] = -1*part[i][1]
 
-    
-
     return parts
 
 def avg_leg_spread(parts):    
@@ -279,3 +277,34 @@ def moving_avg(part):
             smooth_data.append([partx[i], party[i]])
 
         return smooth_data
+
+
+def gait_phase_plotting(file): 
+
+    parts = file_read(file)
+    parts = part_rotation(parts)
+    left1 = moving_avg(parts[0])
+    left2 = moving_avg(parts[1])
+    left3 = moving_avg(parts[2])
+    right1 = moving_avg(parts[3])
+    right2 = moving_avg(parts[4])
+    right3 = moving_avg(parts[5])
+    left1_1 = []
+    left2_1 = []
+    left3_1 = []
+    right1_1 = []
+    right2_1 = []
+    right3_1 = []
+    size = range(len(left1))
+
+    for i in size: 
+        left1_1.append(left1[i][1])
+        left2_1.append(left2[i][1])
+        left3_1.append(left3[i][1])
+        right1_1.append(right1[i][1])
+        right2_1.append(right2[i][1])
+        right3_1.append(right3[i][1])
+    
+
+    return left1_1, left2_1, left3_1, right1_1, right2_1, right3_1
+

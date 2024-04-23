@@ -14,7 +14,7 @@ filename1 = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_At
 
 filename = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_Attempt2_Sorted\0degrees\movie20240315_0degreesDLC_resnet50_Attempt2DLCMar15shuffle1_100000.csv"
 
-file= r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B3_0degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
+file= r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B1_0degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
 
 files = [file]
 #Read the csv file \
@@ -326,15 +326,6 @@ for file in files:
             right2_1.append(right2[i][1])
             right3_1.append(right3[i][1])
 
-
-
-        # sos = signal.butter(25 , 28, 'lp', fs = 100, output = 'sos')
-        # left1_1 = signal.sosfilt(sos,left1_1)
-        # left2_1 = signal.sosfilt(sos, left2_1)
-        # left3_1 = signal.sosfilt(sos, left3_1)
-        # right1_1 = signal.sosfilt(sos, right1_1)
-        # right2_1 = signal.sosfilt(sos, right2_1)
-        # right3_1 = signal.sosfilt(sos, right3_1) 
         ax2 = fig.add_subplot(2,2,1)
         ax2.plot(size, left1_1, '-', color = 'blue')
         ax2.plot(size, left2_1, '-', color = 'red')
@@ -387,4 +378,6 @@ for file in files:
     body_vel_plotting(fig, body_velocity)
     plt.show()
     print(np.mean(body_vel(middle)))
+
+
 

@@ -42,8 +42,9 @@ results = {}
 def stat_analysis(files):
     vel_avg = []
     spread_avg = []
-    
     stand_tot = []
+
+
     for file in files: 
         ## Feed all parts through moving average filter ##
         parts = file_read(file)
@@ -64,12 +65,6 @@ def stat_analysis(files):
 
         leg_velocity = [leg_abs_velocity(left1), leg_abs_velocity(left2), leg_abs_velocity(left3),
                         leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
-        left1_abs_vel = leg_abs_velocity(left1)
-        left2_abs_vel = leg_abs_velocity(left2)
-        left3_abs_vel = leg_abs_velocity(left3)
-        right1_abs_vel = leg_abs_velocity(right1)
-        right2_abs_vel = leg_abs_velocity(right2)
-        right3_abs_vel = leg_abs_velocity(right3)
         
         stand = []
         for foot in leg_velocity:
@@ -77,7 +72,8 @@ def stat_analysis(files):
                 if key == 1:
                     stand.append(len(list(iter)))
 
-        print(stand)
+        stand = [i for i in stand if i < 10]
+        
         avg_stand = np.mean(stand)
 
         stand_tot.append(avg_stand)
@@ -95,10 +91,14 @@ def stat_analysis(files):
     return spread_avg, vel_avg, stand_tot
 
 
+spread_0, vel_0, stand_0 = stat_analysis(zero_degrees)
+spread_45, vel_45, stand_45 = stat_analysis(forty_five_degrees)
+spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
+
+
+
+
 def spread_plot(fig):
-    spread_0,_,_ = stat_analysis(zero_degrees)
-    spread_45,_,_ = stat_analysis(forty_five_degrees)
-    spread_90,_,_ = stat_analysis(ninety_degrees)
 
     label_sp = ["0 degrees", "45 degrees", "90 degrees"]
     spreads = [spread_0, spread_45, spread_90]
@@ -110,9 +110,6 @@ def spread_plot(fig):
     ax1.set_title("Leg Spread")
 
 def velocity_plot(fig):
-    _, vel_0,_ = stat_analysis(zero_degrees)
-    _, vel_45,_ = stat_analysis(forty_five_degrees)
-    _, vel_90,_ = stat_analysis(ninety_degrees)
     vels = [vel_0, vel_45, vel_90]
     label_v = ["0 degrees", "45 degrees", "90 degrees"]
     ax2 = fig.add_subplot(2,2,2)
@@ -122,10 +119,6 @@ def velocity_plot(fig):
 
 
 def stand_plot(fig): 
-    _,_,stand_0 = stat_analysis(zero_degrees)
-    _,_,stand_45 = stat_analysis(forty_five_degrees)
-    _,_,stand_90 = stat_analysis(ninety_degrees)
-
     stands = [stand_0, stand_45, stand_90]
     label_st = ["0 degrees", "45 degrees", "90 degrees"]
 
@@ -134,14 +127,67 @@ def stand_plot(fig):
     ax3.boxplot(stands)
     ax3.set_title("Avg Stand Time")
 
+### Declare the first figure and run all plotting functions ###
 fig = plt.figure()
 spread_plot(fig)
 velocity_plot(fig)
 stand_plot(fig)
 
+plt.show()
+
+
+
+"""Here we plot the gait phase. We will only choose specific files and show them one by one
+    This will reduce the need to extract meaningful data from all the phase plotting. The data
+    Analysis above will be used to show data averages. This is a bad comment I will fix it up later"""
+
+### Plotting of gait phase ###
+fig2 = plt.figure()
+
+### Make gait phase plotting data from specific files ###
+left1_0, left2_0, left3_0, right1_0, right2_0, right3_0 = gait_phase_plotting(file0_2)
+left1_45, left2_45, left3_45, right1_45, right2_45, right3_45 = gait_phase_plotting(file45_2)
+left1_90, left2_90, left3_90, right1_90, right2_90, right3_90 = gait_phase_plotting(file90_1)
+
+
+ax5 = fig2.add_subplot(2,2,1)
+size0 = range(len(left1_0))
+ax5.plot(size0, left1_0, '-', color = 'blue')
+ax5.plot(size0, left2_0, '-', color = 'red')
+ax5.plot(size0, left3_0, '-', color = 'blue')
+ax5.plot(size0, right1_0, '-', color = 'red')
+ax5.plot(size0, right2_0, '-', color = 'blue')
+ax5.plot(size0, right3_0, '-', color = 'red')
+ax5.title.set_text('Foot Vertical Displacement vs Time (90 degrees)')
+
+### Plot phase for 45 degrees ###
+ax6 = fig2.add_subplot(2,2,2)
+size45 = range(len(left1_45))
+ax6.plot(size45, left1_45, '-', color = 'blue')
+ax6.plot(size45, left2_45, '-', color = 'red')
+ax6.plot(size45, left3_45, '-', color = 'blue')
+ax6.plot(size45, right1_45, '-', color = 'red')
+ax6.plot(size45, right2_45, '-', color = 'blue')
+ax6.plot(size45, right3_45, '-', color = 'red')
+ax6.title.set_text('Foot Vertical Displacement vs Time (45 degrees)')
+
+### Plot phase for 90 degrees ###
+ax5 = fig2.add_subplot(2,2,3)
+size90 = range(len(left1_90))
+ax5.plot(size90, left1_90, '-', color = 'blue')
+ax5.plot(size90, left2_90, '-', color = 'red')
+ax5.plot(size90, left3_90, '-', color = 'blue')
+ax5.plot(size90, right1_90, '-', color = 'red')
+ax5.plot(size90, right2_90, '-', color = 'blue')
+ax5.plot(size90, right3_90, '-', color = 'red')
+ax5.title.set_text('Foot Vertical Displacement vs Time (90 degrees)')
 
 
 plt.show()
+
+
+
+
 
 
 
