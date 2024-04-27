@@ -7,46 +7,50 @@ from matplotlib.ticker import MultipleLocator
 from scipy import signal
 from analysis import *
 
-#Zero degrees
-file0_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B3_0degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file0_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B1_0degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file0_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B2_0degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file0_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B3_0deg (2)DLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file0_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B3_0deg (3)DLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
+#Zero degrees files
+file0_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degreees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
-#45 degrees
-file45_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\45degrees\movie20240403_B3_45degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file45_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\45degrees\movie20240403_B3_45deg_verticalDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file45_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\45degrees\movie20240403_B2_45deg_verticalDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file45_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\45degrees\movie20240403_B1_45deg_vertical_turningDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file45_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\45degrees\movie20240403_B1_45deg_vertical_downDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
+#45 degrees files
+file45_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_45degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
-#90 degrees
-file90_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\90degrees\movie20240403_B1_90deg_verticalDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file90_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\90degrees\movie20240403_B3_90deg_verticalDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file90_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\90degrees\movie20240403_B3_90deg_perpendicularDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-file90_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\90degrees\movie20240403_B2_90deg_perpendicularDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
+#90 degrees files 
+file90_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_90degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
 
 
-
+#Declare a list of the files by walking angle
 zero_degrees = [file0_1, file0_2, file0_3, file0_4, file0_5]
 forty_five_degrees = [file45_1, file45_2, file45_3, file45_4, file45_5]
-ninety_degrees = [file90_1, file90_2, file90_3]
+ninety_degrees = [file90_1, file90_2, file90_3, file90_4, file90_5]
 
-results = {}
+
+
+"""This is the statistical analysis function and will be called ONCE per angle. 
+So, all files of a specific angle will be run through in the inner for loop. """
 
 def stat_analysis(files):
+    #Declare empty lists for averages of velocity, leg spread and gait timing
     vel_avg = []
     spread_avg = []
-    stand_tot = []
-
+    gaits = []
 
     for file in files: 
-        ## Feed all parts through moving average filter ##
+        ## Read all files in and pass through moving average filter##
         parts = file_read(file)
         left1 = moving_avg(parts[0])
         left2 = moving_avg(parts[1])
@@ -58,25 +62,35 @@ def stat_analysis(files):
         middle = moving_avg(parts[7])
         bottom = moving_avg(parts[8])
         
-        ## Calculate avg body velocity ##
+        ## Calculate avg body velocity and append to vel_avg list##
         body_v = body_vel(middle)
         avg_vel = np.mean(body_v)
         vel_avg.append(avg_vel)
 
+        #Create a list of leg velocity's, this will be a list of lists, with velocities binary, refer to 'analysis.py' for 
+        #the leg_abs_velocty function specifics
         leg_velocity = [leg_abs_velocity(left1), leg_abs_velocity(left2), leg_abs_velocity(left3),
                         leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
         
+        #Extract the 'length' of all the swing and stand phases. 
+        swing = []
         stand = []
         for foot in leg_velocity:
             for key, iter in it.groupby(foot):
                 if key == 1:
+                    swing.append(len(list(iter)))
+                elif key == 0: 
                     stand.append(len(list(iter)))
-
-        stand = [i for i in stand if i < 10]
         
+        #So for each file we have an average stand and an average swing time
         avg_stand = np.mean(stand)
+        avg_swing = np.mean(swing)
 
-        stand_tot.append(avg_stand)
+        #Convert this to a percentage and a tuple form. 
+        gait = [avg_stand/(avg_stand+avg_swing)*100, avg_swing/(avg_stand + avg_swing)*100]
+
+        #Append this average to the gaits list.
+        gaits.append(gait)
 
         #Rotate Parts and calculate the average leg spread
         rot_parts = part_rotation(parts)
@@ -84,11 +98,19 @@ def stat_analysis(files):
         spread_avg.append(leg_spread)
 
 
+    #For each average in the gaits list, average the swings and stands. Return a [x,y] tuple of total 
+    #average swing and stand. 
+    stands = [item[0] for item in gaits]
+    swings = [item[1] for item in gaits]
+
+    stand_tot  = [np.mean(stands), np.mean(swings)]
 
 
 
 
     return spread_avg, vel_avg, stand_tot
+
+#Put in seperate legs like a 'percentage' of its entire swing. 
 
 
 spread_0, vel_0, stand_0 = stat_analysis(zero_degrees)
@@ -96,7 +118,7 @@ spread_45, vel_45, stand_45 = stat_analysis(forty_five_degrees)
 spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
 
 
-
+print(stand_0, stand_45, stand_90)
 
 def spread_plot(fig):
 
@@ -119,13 +141,18 @@ def velocity_plot(fig):
 
 
 def stand_plot(fig): 
-    stands = [stand_0, stand_45, stand_90]
-    label_st = ["0 degrees", "45 degrees", "90 degrees"]
+    gaits = [stand_0, stand_45, stand_90] 
+    stands = [item[0] for item in gaits]
+    swings = [item[1] for item in gaits]
 
+
+    label_st = ["0 degrees", "45 degrees", "90 degrees"]
     ax3 = fig.add_subplot(2,2,3)
-    ax3.set_xticklabels(label_st)
-    ax3.boxplot(stands)
-    ax3.set_title("Avg Stand Time")
+    a1 = ax3.barh(label_st, stands, color = 'white', edgecolor = 'black', hatch = 'x')
+    a2 = ax3.barh(label_st, swings, left = stands, color = 'white', edgecolor = 'black', hatch = 'o')
+    ax3.legend([a1,a2], ["Stand Phase", "Swing Phase"], title = "Phase of gait cycle", loc = "upper right")
+    ax3.set_xlim(-10,110)
+
 
 ### Declare the first figure and run all plotting functions ###
 fig = plt.figure()
@@ -145,8 +172,8 @@ plt.show()
 fig2 = plt.figure()
 
 ### Make gait phase plotting data from specific files ###
-left1_0, left2_0, left3_0, right1_0, right2_0, right3_0 = gait_phase_plotting(file0_2)
-left1_45, left2_45, left3_45, right1_45, right2_45, right3_45 = gait_phase_plotting(file45_2)
+left1_0, left2_0, left3_0, right1_0, right2_0, right3_0 = gait_phase_plotting(file0_4)
+left1_45, left2_45, left3_45, right1_45, right2_45, right3_45 = gait_phase_plotting(file45_5)
 left1_90, left2_90, left3_90, right1_90, right2_90, right3_90 = gait_phase_plotting(file90_1)
 
 
@@ -158,7 +185,7 @@ ax5.plot(size0, left3_0, '-', color = 'blue')
 ax5.plot(size0, right1_0, '-', color = 'red')
 ax5.plot(size0, right2_0, '-', color = 'blue')
 ax5.plot(size0, right3_0, '-', color = 'red')
-ax5.title.set_text('Foot Vertical Displacement vs Time (90 degrees)')
+ax5.title.set_text('Foot Vertical Displacement vs Time (0 degrees)')
 
 ### Plot phase for 45 degrees ###
 ax6 = fig2.add_subplot(2,2,2)

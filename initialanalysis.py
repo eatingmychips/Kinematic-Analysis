@@ -14,8 +14,7 @@ filename1 = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_At
 
 filename = r"C:\Users\lachl\OneDrive\Thesis\DeepLabCut\KinematicAnalysis\DLC_Attempt2_Sorted\0degrees\movie20240315_0degreesDLC_resnet50_Attempt2DLCMar15shuffle1_100000.csv"
 
-file= r"C:\Users\lachl\OneDrive\Thesis\Data\KinAnal_Videos\0degrees\movie20240403_B1_0degDLC_resnet50_KinematicAnalysisApr2shuffle1_100000.csv"
-
+file=  r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 files = [file]
 #Read the csv file \
 
@@ -222,7 +221,7 @@ for file in files:
         """ sos = signal.butter(10 , 12, 'lp', fs = 100, output = 'sos')
         rawvel = signal.sosfilt(sos, rawvel) """
         for i in rawvel:
-            if i > 1.5: 
+            if i > 5: 
                 vel.append(1)
             else: 
                 vel.append(0)

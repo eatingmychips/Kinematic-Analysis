@@ -173,10 +173,8 @@ def leg_abs_velocity(part):
             norm = np.linalg.norm(delta)
             rawvel.append(norm)
 
-    """ sos = signal.butter(10 , 12, 'lp', fs = 100, output = 'sos')
-    rawvel = signal.sosfilt(sos, rawvel) """
     for i in rawvel:
-        if i > 1: 
+        if i > 4: 
             vel.append(1)
         else: 
             vel.append(0)
