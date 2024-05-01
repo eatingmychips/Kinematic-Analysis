@@ -201,10 +201,15 @@ def leg_time(vel):
             swing.append(len(list(iter)))
         elif key == 0:
             stand.append(len(list(iter)))
-    swing = []
+
+    stand = [x for x in stand if 3 < x < 90]
+    swing = [x for x in swing if 3 < x ]
     avg_swing = np.mean(swing)
     avg_stand = np.mean(stand)
-    return [avg_swing, avg_stand]
+
+    gait = [avg_stand/(avg_stand+avg_swing)*100, avg_swing/(avg_stand + avg_swing)*100]
+    
+    return gait
 
 
 

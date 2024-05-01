@@ -80,44 +80,33 @@ def stat_analysis(files):
         
         #Extract the 'length' of all the swing and stand phases. 
         left1_gait.append(leg_time(leg_velocity[0]))
-
-        swing = []
-        stand = []
-        for foot in leg_velocity:
-            for key, iter in it.groupby(foot):
-                if key == 1:
-                    swing.append(len(list(iter)))
-                elif key == 0: 
-                    stand.append(len(list(iter)))
-        
-
-
-        #So for each file we have an average stand and an average swing time
-        stand = [x for x in stand if 3 < x < 90]
-        swing = [x for x in swing if 3 < x ]
-        
-        avg_stand = np.mean(stand)
-        avg_swing = np.mean(swing)
-
-        #Convert this to a percentage and a tuple form. 
-        gait = [avg_stand/(avg_stand+avg_swing)*100, avg_swing/(avg_stand + avg_swing)*100]
-
-        #Append this average to the gaits list.
-        gaits.append(gait)
+        left2_gait.append(leg_time(leg_velocity[1]))
+        left3_gait.append(leg_time(leg_velocity[2]))
+        right1_gait.append(leg_time(leg_velocity[3]))
+        right2_gait.append(leg_time(leg_velocity[4]))
+        right3_gait.append(leg_time(leg_velocity[5]))
 
         #Rotate Parts and calculate the average leg spread
         rot_parts = part_rotation(parts)
         spread_parts.append(rot_parts)
 
 
-    #For each average in the gaits list, average the swings and stands. Return a [x,y] tuple of total 
-    #average swing and stand. 
-    stands = [item[0] for item in gaits]
-    swings = [item[1] for item in gaits]
+    #For each avearage in the gaits list, average the swings and stands. Return a [x,y] tuple of total 
+    #average swing and stnd. 
+    # stands = [item[0] for item in gaits]
+    # swings = [item[1] for item in gaits]
 
 
-    stand_tot  = [np.mean(stands), np.mean(swings)]
+    # stand_tot  = [np.mean(stands), np.mean(swings)]
 
+    left1_tot = [np.mean([item[1] for item in left1_gait]), np.mean([item[0] for item in left1_gait])]
+    left2_tot = [np.mean([item[0] for item in left2_gait]), np.mean([item[1] for item in left2_gait])]
+    left3_tot = [np.mean([item[1] for item in left3_gait]), np.mean([item[0] for item in left3_gait])]
+    right1_tot = [np.mean([item[0] for item in right1_gait]), np.mean([item[1] for item in right1_gait])]
+    right2_tot = [np.mean([item[1] for item in right2_gait]), np.mean([item[0] for item in right2_gait])]
+    right3_tot = [np.mean([item[0] for item in right3_gait]), np.mean([item[1] for item in right3_gait])]
+
+    stand_tot = [left1_tot, left2_tot, left3_tot, right1_tot, right2_tot, right3_tot]
 
 
 
@@ -220,18 +209,69 @@ def velocity_plot(fig):
 
 
 def stand_plot(fig): 
-    gaits = [stand_0, stand_45, stand_90] 
-    stands = [item[0] for item in gaits]
-    swings = [item[1] for item in gaits]
+    
+    
+    zero_stands = [item[0] for item in stand_0]
+    zero_swings = [item[1] for item in stand_0]
+
+    forty_stands = [item[0] for item in stand_45]
+    forty_swings = [item[1] for item in stand_45]
+
+    ninety_stands = [item[0] for item in stand_90]
+    ninety_swings = [item[1] for item in stand_90]
 
 
-    label_st = ["0 degrees", "45 degrees", "90 degrees"]
-    ax3 = fig.add_subplot(2,2,3)
-    a1 = ax3.barh(label_st, stands, color = 'white', edgecolor = 'black', hatch = 'x')
-    a2 = ax3.barh(label_st, swings, left = stands, color = 'white', edgecolor = 'black', hatch = 'o')
+
+    ax3 = fig.add_subplot(2,2,1)
+    a1 = ax3.barh("Left 1", zero_stands[0], color = 'white', edgecolor = 'black')
+    a2 = ax3.barh("Left 1", zero_swings[0], left = zero_stands[0], color = 'black', edgecolor = 'black')
+    ax3.barh("Left 2", zero_stands[1], color = 'black', edgecolor = 'black')
+    ax3.barh("Left 2", zero_swings[1], left = zero_stands[1], color = 'white', edgecolor = 'black')
+    ax3.barh("Left 3", zero_stands[2], color = 'white', edgecolor = 'black')
+    ax3.barh("Left 3", zero_swings[2], left = zero_stands[2], color = 'black', edgecolor = 'black')
+    ax3.barh("Right 1", zero_stands[3], color = 'black', edgecolor = 'black')
+    ax3.barh("Right 1", zero_swings[3], left = zero_stands[3], color = 'white', edgecolor = 'black')
+    ax3.barh("Right 2", zero_stands[4], color = 'white', edgecolor = 'black')
+    ax3.barh("Right 2", zero_swings[4], left = zero_stands[4], color = 'black', edgecolor = 'black')
+    ax3.barh("Right 3", zero_stands[5], color = 'black', edgecolor = 'black')
+    ax3.barh("Right 3", zero_swings[5], left = zero_stands[5], color = 'white', edgecolor = 'black')
     ax3.legend([a1,a2], ["Stand Phase", "Swing Phase"], title = "Phase of gait cycle", loc = "upper right")
-    ax3.set_title("Percentage of gait cycle spent in stand or swing")
+    ax3.set_title("Gait Cycle 0 degrees")
     ax3.set_xlim(-10,110)
+    
+    ax4 = fig.add_subplot(2,2,2)
+    a3 = ax4.barh("Left 1", forty_stands[0], color = 'white', edgecolor = 'black')
+    a4 = ax4.barh("Left 1", forty_swings[0], left = forty_stands[0], color = 'black', edgecolor = 'black')
+    ax4.barh("Left 2", forty_stands[1], color = 'black', edgecolor = 'black')
+    ax4.barh("Left 2", forty_swings[1], left = forty_stands[1], color = 'white', edgecolor = 'black')
+    ax4.barh("Left 3", forty_stands[2], color = 'white', edgecolor = 'black')
+    ax4.barh("Left 3", forty_swings[2], left = forty_stands[2], color = 'black', edgecolor = 'black')
+    ax4.barh("Right 1", forty_stands[3], color = 'black', edgecolor = 'black')
+    ax4.barh("Right 1", forty_swings[3], left = forty_stands[3], color = 'white', edgecolor = 'black')
+    ax4.barh("Right 2", forty_stands[4], color = 'white', edgecolor = 'black')
+    ax4.barh("Right 2", forty_swings[4], left = forty_stands[4], color = 'black', edgecolor = 'black')
+    ax4.barh("Right 3", forty_stands[5], color = 'black', edgecolor = 'black')
+    ax4.barh("Right 3", forty_swings[5], left = forty_stands[5], color = 'white', edgecolor = 'black')
+    ax4.set_title("Gait cycle 45 degrees")
+    ax4.legend([a3,a4], ["Stand Phase", "Swing Phase"], title = "Phase of gait cycle", loc = "upper right")
+
+
+    ax5 = fig.add_subplot(2,2,3)
+    a5 = ax5.barh("Left 1", ninety_stands[0], color = 'white', edgecolor = 'black')
+    a6 = ax5.barh("Left 1", ninety_swings[0], left = ninety_stands[0], color = 'black', edgecolor = 'black')
+    ax5.barh("Left 2", ninety_stands[1], color = 'black', edgecolor = 'black')
+    ax5.barh("Left 2", ninety_swings[1], left = ninety_stands[1], color = 'white', edgecolor = 'black')
+    ax5.barh("Left 3",ninety_stands[2], color = 'white', edgecolor = 'black')
+    ax5.barh("Left 3", ninety_swings[2], left = ninety_stands[2], color = 'black', edgecolor = 'black')
+    ax5.barh("Right 1", ninety_stands[3], color = 'black', edgecolor = 'black')
+    ax5.barh("Right 1", ninety_swings[3], left = ninety_stands[3], color = 'white', edgecolor = 'black')
+    ax5.barh("Right 2", ninety_stands[4], color = 'white', edgecolor = 'black')
+    ax5.barh("Right 2", ninety_swings[4], left = ninety_stands[4], color = 'black', edgecolor = 'black')
+    ax5.barh("Right 3", ninety_stands[5], color = 'black', edgecolor = 'black')
+    ax5.barh("Right 3", ninety_swings[5], left = ninety_stands[5], color = 'white', edgecolor = 'black')
+    ax5.set_title("Gait cycle 90 degrees")
+    ax5.legend([a5,a6], ["Stand Phase", "Swing Phase"], title = "Phase of gait cycle", loc = "upper right")
+    
 
 
 
@@ -241,6 +281,9 @@ fig1 = plt.figure()
 spread_plot(fig1)
 plt.show()
 
+fig3 = plt.figure()
+stand_plot(fig3)
+plt.show()
 # fig2 = plt.figure()
 # velocity_plot(fig)
 # stand_plot(fig)
