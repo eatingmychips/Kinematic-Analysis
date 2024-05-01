@@ -46,8 +46,14 @@ So, all files of a specific angle will be run through in the inner for loop. """
 def stat_analysis(files):
     #Declare empty lists for averages of velocity, leg spread and gait timing
     vel_avg = []
-    spread_avg = []
     gaits = []
+    spread_parts = []
+    left1_gait = []
+    left2_gait = []
+    left3_gait = []
+    right1_gait = []
+    right2_gait = []
+    right3_gait = []
 
     for file in files: 
         ## Read all files in and pass through moving average filter##
@@ -73,6 +79,8 @@ def stat_analysis(files):
                         leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
         
         #Extract the 'length' of all the swing and stand phases. 
+        left1_gait.append(leg_time(leg_velocity[0]))
+
         swing = []
         stand = []
         for foot in leg_velocity:
@@ -82,6 +90,8 @@ def stat_analysis(files):
                 elif key == 0: 
                     stand.append(len(list(iter)))
         
+
+
         #So for each file we have an average stand and an average swing time
         stand = [x for x in stand if 3 < x < 90]
         swing = [x for x in swing if 3 < x ]
@@ -97,8 +107,7 @@ def stat_analysis(files):
 
         #Rotate Parts and calculate the average leg spread
         rot_parts = part_rotation(parts)
-        leg_spread = avg_leg_spread(rot_parts)
-        spread_avg.append(leg_spread)
+        spread_parts.append(rot_parts)
 
 
     #For each average in the gaits list, average the swings and stands. Return a [x,y] tuple of total 
@@ -112,7 +121,7 @@ def stat_analysis(files):
 
 
 
-    return spread_avg, vel_avg, stand_tot
+    return spread_parts, vel_avg, stand_tot
 
 #Put in seperate legs like a 'percentage' of its entire swing. 
 
@@ -125,15 +134,80 @@ spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
 print(stand_0, stand_45, stand_90)
 
 def spread_plot(fig):
+    ax1 = fig.add_subplot(2,2,1)
 
-    label_sp = ["0 degrees", "45 degrees", "90 degrees"]
-    spreads = [spread_0, spread_45, spread_90]
+    for file in spread_0:
+        x,y = zip(*file[0])
+        ax1.scatter(x,y, color = 'blue')
+        x,y = zip(*file[1])
+        ax1.scatter(x,y, color = 'red')
+        x,y = zip(*file[2])
+        ax1.scatter(x,y, color = 'purple')
+        x,y = zip(*file[3])
+        ax1.scatter(x,y, color = 'orange')
+        x,y = zip(*file[4])
+        ax1.scatter(x,y, color = 'darkblue')
+        x,y = zip(*file[5])
+        ax1.scatter(x,y, color = 'aquamarine')
+        x,y = zip(*file[6])
+        ax1.scatter(x,y, color = 'greenyellow')
+        x,y = zip(*file[7])
+        ax1.scatter(x,y, color = 'forestgreen')
+        x,y = zip(*file[8])
+        ax1.scatter(x,y, color = 'mediumorchid')
+    ax1.set_title("Leg Spread 0 degrees")
+
+
+    ax2 = fig.add_subplot(2,2,2)
+    for file in spread_45:
+        x,y = zip(*file[0])
+        ax2.scatter(x,y, color = 'blue')
+        x,y = zip(*file[1])
+        ax2.scatter(x,y, color = 'red')
+        x,y = zip(*file[2])
+        ax2.scatter(x,y, color = 'purple')
+        x,y = zip(*file[3])
+        ax2.scatter(x,y, color = 'orange')
+        x,y = zip(*file[4])
+        ax2.scatter(x,y, color = 'darkblue')
+        x,y = zip(*file[5])
+        ax2.scatter(x,y, color = 'aquamarine')
+        x,y = zip(*file[6])
+        ax2.scatter(x,y, color = 'greenyellow')
+        x,y = zip(*file[7])
+        ax2.scatter(x,y, color = 'forestgreen')
+        x,y = zip(*file[8])
+        ax2.scatter(x,y, color = 'mediumorchid')
+    ax2.set_title("Leg Spread 45 degrees")
+
+
+    ax3 = fig.add_subplot(2,2,3)
+    for file in spread_90:
+        x,y = zip(*file[0])
+        ax3.scatter(x,y, color = 'blue')
+        x,y = zip(*file[1])
+        ax3.scatter(x,y, color = 'red')
+        x,y = zip(*file[2])
+        ax3.scatter(x,y, color = 'purple')
+        x,y = zip(*file[3])
+        ax3.scatter(x,y, color = 'orange')
+        x,y = zip(*file[4])
+        ax3.scatter(x,y, color = 'darkblue')
+        x,y = zip(*file[5])
+        ax3.scatter(x,y, color = 'aquamarine')
+        x,y = zip(*file[6])
+        ax3.scatter(x,y, color = 'greenyellow')
+        x,y = zip(*file[7])
+        ax3.scatter(x,y, color = 'forestgreen')
+        x,y = zip(*file[8])
+        ax3.scatter(x,y, color = 'mediumorchid')
+    ax3.set_title("Leg Spread 90 degrees")
+
+
     
 
-    ax1 = fig.add_subplot(2,2,1)
-    ax1.boxplot(spreads)
-    ax1.set_xticklabels(label_sp)
-    ax1.set_title("Leg Spread")
+
+
 
 def velocity_plot(fig):
     vels = [vel_0, vel_45, vel_90]
@@ -142,6 +216,7 @@ def velocity_plot(fig):
     ax2.set_xticklabels(label_v)
     ax2.boxplot(vels)
     ax2.set_title("Velocity")
+
 
 
 def stand_plot(fig): 
@@ -159,13 +234,18 @@ def stand_plot(fig):
     ax3.set_xlim(-10,110)
 
 
-### Declare the first figure and run all plotting functions ###
-fig = plt.figure()
-spread_plot(fig)
-velocity_plot(fig)
-stand_plot(fig)
 
+
+### Declare the first figure and run all plotting functions ###
+fig1 = plt.figure()
+spread_plot(fig1)
 plt.show()
+
+# fig2 = plt.figure()
+# velocity_plot(fig)
+# stand_plot(fig)
+
+
 
 
 

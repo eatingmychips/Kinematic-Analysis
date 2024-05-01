@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from scipy import signal
-
+import random
 
 def file_read(file):
     df = pd.read_csv(file, skiprows=0)
@@ -163,6 +163,18 @@ def body_vel(middle):
 
     return body_v
 
+
+def gait_spread(spread_parts): 
+    sampled_parts = []
+    for file in sampled_parts:
+        for part in file:
+            part = random.sample(part, len(part)/5)
+            sampled_parts.append(part)
+
+    return sampled_parts
+
+
+
 def leg_abs_velocity(part):
     vel =[]
     rawvel = []
@@ -189,10 +201,13 @@ def leg_time(vel):
             swing.append(len(list(iter)))
         elif key == 0:
             stand.append(len(list(iter)))
-    
+    swing = []
     avg_swing = np.mean(swing)
     avg_stand = np.mean(stand)
-    return avg_swing, avg_stand
+    return [avg_swing, avg_stand]
+
+
+
 
 
 def part_rotation(parts):
