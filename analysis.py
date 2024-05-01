@@ -169,12 +169,12 @@ def leg_abs_velocity(part):
     size = range(len(part))
     for i in size:
         if i > 0: 
-            delta = np.subtract(part[i], part[i-1])
+            delta = np.subtract(part[i], part[i-2])
             norm = np.linalg.norm(delta)
             rawvel.append(norm)
 
     for i in rawvel:
-        if i > 4: 
+        if i > 4.5: 
             vel.append(1)
         else: 
             vel.append(0)

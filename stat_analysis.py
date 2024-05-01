@@ -83,6 +83,9 @@ def stat_analysis(files):
                     stand.append(len(list(iter)))
         
         #So for each file we have an average stand and an average swing time
+        stand = [x for x in stand if 3 < x < 90]
+        swing = [x for x in swing if 3 < x ]
+        
         avg_stand = np.mean(stand)
         avg_swing = np.mean(swing)
 
@@ -102,6 +105,7 @@ def stat_analysis(files):
     #average swing and stand. 
     stands = [item[0] for item in gaits]
     swings = [item[1] for item in gaits]
+
 
     stand_tot  = [np.mean(stands), np.mean(swings)]
 
@@ -151,6 +155,7 @@ def stand_plot(fig):
     a1 = ax3.barh(label_st, stands, color = 'white', edgecolor = 'black', hatch = 'x')
     a2 = ax3.barh(label_st, swings, left = stands, color = 'white', edgecolor = 'black', hatch = 'o')
     ax3.legend([a1,a2], ["Stand Phase", "Swing Phase"], title = "Phase of gait cycle", loc = "upper right")
+    ax3.set_title("Percentage of gait cycle spent in stand or swing")
     ax3.set_xlim(-10,110)
 
 
@@ -174,41 +179,47 @@ fig2 = plt.figure()
 ### Make gait phase plotting data from specific files ###
 left1_0, left2_0, left3_0, right1_0, right2_0, right3_0 = gait_phase_plotting(file0_4)
 left1_45, left2_45, left3_45, right1_45, right2_45, right3_45 = gait_phase_plotting(file45_5)
-left1_90, left2_90, left3_90, right1_90, right2_90, right3_90 = gait_phase_plotting(file90_1)
+left1_90, left2_90, left3_90, right1_90, right2_90, right3_90 = gait_phase_plotting(file90_3)
 
 
 ax5 = fig2.add_subplot(2,2,1)
 size0 = range(len(left1_0))
-ax5.plot(size0, left1_0, '-', color = 'blue')
-ax5.plot(size0, left2_0, '-', color = 'red')
-ax5.plot(size0, left3_0, '-', color = 'blue')
-ax5.plot(size0, right1_0, '-', color = 'red')
-ax5.plot(size0, right2_0, '-', color = 'blue')
-ax5.plot(size0, right3_0, '-', color = 'red')
+l1, = ax5.plot(size0, left1_0, '-', color = 'purple')
+l2, = ax5.plot(size0, left2_0, '-', color = 'darkblue')
+l3, = ax5.plot(size0, left3_0, '-', color = 'cornflowerblue')
+r1, = ax5.plot(size0, [x + 18 for x in right1_0], '-', color = 'cyan')
+r2, = ax5.plot(size0, [x + 25 for x in right2_0], '-', color = 'aquamarine')
+r3, = ax5.plot(size0, [x + 25 for x in right3_0], '-', color = 'greenyellow')
+ax5.legend([r3, l3, r2, l2, r1, l1], ["Right 3", "Left 3", "Right 2", "Left 2", "Right 1", "Left 1"], title = "Foot Label", loc = "lower right", ncol = 1, fancybox = True, shadow = True)
 ax5.title.set_text('Foot Vertical Displacement vs Time (0 degrees)')
+ax5.set_facecolor('grey')
 
 ### Plot phase for 45 degrees ###
 ax6 = fig2.add_subplot(2,2,2)
 size45 = range(len(left1_45))
-ax6.plot(size45, left1_45, '-', color = 'blue')
-ax6.plot(size45, left2_45, '-', color = 'red')
-ax6.plot(size45, left3_45, '-', color = 'blue')
-ax6.plot(size45, right1_45, '-', color = 'red')
-ax6.plot(size45, right2_45, '-', color = 'blue')
-ax6.plot(size45, right3_45, '-', color = 'red')
+ax6.plot(size45, left1_45, '-', color = 'purple')
+ax6.plot(size45, left2_45, '-', color = 'darkblue')
+ax6.plot(size45, [x + 30 for x in left3_45], '-', color = 'cornflowerblue')
+ax6.plot(size45, [x + 25 for x in right1_45], '-', color = 'cyan')
+ax6.plot(size45, [x + 50 for x in right2_45], '-', color = 'aquamarine')
+ax6.plot(size45, [x + 80 for x in right3_45], '-', color = 'greenyellow')
+ax6.legend([r3, l3, r2, l2, r1, l1], ["Right 3", "Left 3", "Right 2", "Left 2", "Right 1", "Left 1"], title = "Foot Label", loc = "lower right", ncol = 1, fancybox = True, shadow = True)
 ax6.title.set_text('Foot Vertical Displacement vs Time (45 degrees)')
+ax6.set_facecolor('grey')
+
 
 ### Plot phase for 90 degrees ###
-ax5 = fig2.add_subplot(2,2,3)
+ax7 = fig2.add_subplot(2,2,3)
 size90 = range(len(left1_90))
-ax5.plot(size90, left1_90, '-', color = 'blue')
-ax5.plot(size90, left2_90, '-', color = 'red')
-ax5.plot(size90, left3_90, '-', color = 'blue')
-ax5.plot(size90, right1_90, '-', color = 'red')
-ax5.plot(size90, right2_90, '-', color = 'blue')
-ax5.plot(size90, right3_90, '-', color = 'red')
-ax5.title.set_text('Foot Vertical Displacement vs Time (90 degrees)')
-
+ax7.plot(size90, left1_90, '-', color = 'purple')
+ax7.plot(size90, left2_90, '-', color = 'darkblue')
+ax7.plot(size90, [x + 40 for x in left3_90], '-', color = 'cornflowerblue')
+ax7.plot(size90, [x + 30 for x in right1_90], '-', color = 'cyan')
+ax7.plot(size90, [x + 50 for x in right2_90], '-', color = 'aquamarine')
+ax7.plot(size90, [x + 80 for x in right3_90], '-', color = 'greenyellow')
+ax7.legend([r3, l3, r2, l2, r1, l1], ["Right 3", "Left 3", "Right 2", "Left 2", "Right 1", "Left 1"], title = "Foot Label", loc = "lower right", ncol = 1, fancybox = True, shadow = True)
+ax7.title.set_text('Foot Vertical Displacement vs Time (90 degrees)')
+ax7.set_facecolor('grey')
 
 plt.show()
 
