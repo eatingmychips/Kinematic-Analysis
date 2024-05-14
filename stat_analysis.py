@@ -139,6 +139,8 @@ def spread_plot(fig):
         ax1.arrow(0,0,0,100, width = 1, color = 'black')
         ax1.annotate('Head', xy = (-3,105), xytext=(-3,105), color = 'black')
         ax1.annotate('Bottom', xy = (0,0), xytext=(-5,-5), color = 'black')
+        ax1.set_xlim(-80,80)
+        ax1.set_ylim(-35,140)
     ax1.set_title("Leg Spread 0 degrees")
 
 
@@ -165,6 +167,8 @@ def spread_plot(fig):
         ax2.arrow(0,0,0,100, width = 1, color = 'black')
         ax2.annotate('Head', xy = (-3,105), xytext=(-3,105), color = 'black')
         ax2.annotate('Bottom', xy = (0,0), xytext=(-5,-5), color = 'black')
+        ax2.set_xlim(-80,80)
+        ax2.set_ylim(-35,140)
     ax2.set_title("Leg Spread 45 degrees")
 
 
@@ -191,10 +195,11 @@ def spread_plot(fig):
         ax3.arrow(0,0,0,100, width = 1, color = 'black')
         ax3.annotate('Head', xy = (-3,105), xytext=(-3,105), color = 'black')
         ax3.annotate('Bottom', xy = (0,0), xytext=(-5,-5), color = 'black')
+        ax3.set_xlim(-80,80)
+        ax3.set_ylim(-35,140)
     ax3.set_title("Leg Spread 90 degrees")
 
 
-    
 
 
 
@@ -205,7 +210,8 @@ def velocity_plot(fig):
     ax8 = fig.add_subplot(2,2,4)
     ax8.set_xticklabels(label_v)
     ax8.boxplot(vels)
-    ax8.set_title("Velocity")
+    ax8.set_title("Velocity vs Angle of Inclination")
+    ax8.set_ylabel("Velocity")
 
 
 
@@ -236,8 +242,9 @@ def stand_plot(fig):
     ax3.barh("Right 2", zero_swings[4], left = zero_stands[4], color = 'black', edgecolor = 'black')
     ax3.barh("Right 3", zero_stands[5], color = 'black', edgecolor = 'black')
     ax3.barh("Right 3", zero_swings[5], left = zero_stands[5], color = 'white', edgecolor = 'black')
-    ax3.legend([a1,a2], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
+    #ax3.legend([a1,a2], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
     ax3.set_title("Gait Cycle 0 degrees")
+    ax3.set_xlabel('Percentage of Total Gait Cycle (%)')
     ax3.set_xlim(-10,110)
     
     ax4 = fig.add_subplot(2,2,2)
@@ -254,8 +261,9 @@ def stand_plot(fig):
     ax4.barh("Right 3", forty_stands[5], color = 'black', edgecolor = 'black')
     ax4.barh("Right 3", forty_swings[5], left = forty_stands[5], color = 'white', edgecolor = 'black')
     ax4.set_title("Gait cycle 45 degrees")
-    ax4.legend([a3,a4], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
-
+    ax4.set_xlabel('Percentage of Total Gait Cycle (%)')
+    #ax4.legend([a3,a4], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
+    ax4.set_xlim(-10,110)
 
     ax5 = fig.add_subplot(2,2,3)
     a5 = ax5.barh("Left 1", ninety_stands[0], color = 'white', edgecolor = 'black')
@@ -271,8 +279,9 @@ def stand_plot(fig):
     ax5.barh("Right 3", ninety_stands[5], color = 'black', edgecolor = 'black')
     ax5.barh("Right 3", ninety_swings[5], left = ninety_stands[5], color = 'white', edgecolor = 'black')
     ax5.set_title("Gait cycle 90 degrees")
-    ax5.legend([a5,a6], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
-    
+    ax5.set_xlabel('Percentage of Total Gait Cycle (%)')
+    #ax5.legend([a5,a6], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
+    ax5.set_xlim(-10,110)
 
 
 
@@ -322,7 +331,7 @@ ax5.annotate('right 2', xy = (size0[0], right2_0[0]), xytext=(-14+size0[0], 25+ 
 ax5.plot(size0, [x + 25 for x in right3_0], '-', color = 'greenyellow')
 ax5.annotate('right 3', xy = (size0[0], right3_0[0]), xytext=(-12+size0[0], 25+ right3_0[0]), color = 'greenyellow')
 ax5.title.set_text('Foot Vertical Displacement vs Time (0 degrees)')
-ax5.set_xlim(-15,160)
+ax5.set_xlim(-15,165)
 ax5.set_xlabel('Time (frames)')
 ax5.set_ylabel('Position)')
 ax5.set_facecolor('black')
@@ -345,7 +354,7 @@ ax6.annotate('right 3', xy = (size45[0], right3_45[0]), xytext=(-12 + size45[0],
 ax6.title.set_text('Foot Vertical Displacement vs Time (45 degrees)')
 ax6.set_xlabel('Time (frames)')
 ax6.set_ylabel('Position')
-ax6.set_xlim(-15,160)
+ax6.set_xlim(-15,165)
 ax6.set_facecolor('black')
 
 
@@ -367,7 +376,7 @@ ax7.annotate('right 3', xy = (size90[0], right3_90[0]), xytext=(-12 + size90[0],
 ax7.title.set_text('Foot Vertical Displacement vs Time (90 degrees)')
 ax7.set_xlabel('Time (frames)')
 ax7.set_ylabel('Position')
-ax7.set_xlim(-15,160)
+ax7.set_xlim(-15,165)
 ax7.set_facecolor('black')
 
 plt.show()
