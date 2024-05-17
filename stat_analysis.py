@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from scipy import signal
 from analysis import *
-
+import statistics as stat
 #Zero degrees files
 file0_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degreees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file0_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
@@ -112,7 +112,6 @@ spread_45, vel_45, stand_45 = stat_analysis(forty_five_degrees)
 spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
 
 
-print(stand_0, stand_45, stand_90)
 
 def spread_plot(fig):
     ax1 = fig.add_subplot(2,2,1)
@@ -203,15 +202,31 @@ def spread_plot(fig):
 
 
 
-
 def velocity_plot(fig):
     vels = [vel_0, vel_45, vel_90]
+    devs = [stat.stdev(x) for x in vels]
+    mean = [stat.mean(x) for x in vels]
+
+    #### t-test (Welchs https://en.wikipedia.org/wiki/Welch%27s_t-test) ####
+    t_zero_fotry = (mean[0] - mean[1])/np.sqrt((devs[0]/np.sqrt(len(zero_degrees)))**2 + (devs[1]/np.sqrt(len(forty_five_degrees)))**2)
+    t_zero_ninety = (mean[0] - mean[2])/np.sqrt((devs[0]/np.sqrt(len(zero_degrees)))**2 + (devs[2]/np.sqrt(len(ninety_degrees)))**2)
+    t_forty_ninety = (mean[1] - mean[2])/np.sqrt((devs[1]/np.sqrt(len(forty_five_degrees)))**2 + (devs[2]/np.sqrt(len(ninety_degrees)))**2)
+    print('The Students t-test between 0 and 45 degrees is', t_zero_fotry)
+    print('The Students t-test between 0 and 90 degrees is', t_zero_ninety)
+    print('The Students t-test between 45 and 90 degrees is', t_forty_ninety)
+
+
     label_v = ["0 degrees", "45 degrees", "90 degrees"]
     ax8 = fig.add_subplot(2,2,4)
     ax8.set_xticklabels(label_v)
     ax8.boxplot(vels)
     ax8.set_title("Velocity vs Angle of Inclination")
     ax8.set_ylabel("Velocity")
+    zero_mean = np.mean(vel_0)
+    forty_mean = np.mean(vel_45)
+    ninety_mean = np.mean(vel_90)
+
+
 
 
 
