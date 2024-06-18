@@ -13,7 +13,18 @@ file0_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_
 file0_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file0_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file0_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-
+file0_6 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_7 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_8 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_9 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_10 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_11 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_12 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_13 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_14 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_15 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_16 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file0_17 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 #45 degrees files
 file45_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
@@ -21,7 +32,18 @@ file45_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425
 file45_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file45_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file45_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-
+file45_6 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_7 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_8 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_9 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_10 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_11 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_12 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_13 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_14 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_15 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_16 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file45_17 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 #90 degrees files 
 file90_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
@@ -29,14 +51,28 @@ file90_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425
 file90_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file90_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 file90_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-
+file90_6 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_7 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_8 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_9 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_10 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_11 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_12 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_13 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_14 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_15 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_16 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+file90_17 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
 
 #Declare a list of the files by walking angle
-zero_degrees = [file0_1, file0_2, file0_3, file0_4, file0_5]
-forty_five_degrees = [file45_1, file45_2, file45_3, file45_4, file45_5]
-ninety_degrees = [file90_1, file90_2, file90_3, file90_4, file90_5]
+zero_degrees = [file0_1, file0_2, file0_3, file0_4, file0_5, file0_6, file0_7, file0_8, file0_9, file0_10, file0_11, file0_12, file0_13, file0_14,
+                file0_15, file0_16, file0_17]
+forty_five_degrees = [file45_1, file45_2, file45_3, file45_4, file45_5, file45_6, file45_7, file45_8, file45_9, file45_10, file45_11, file45_12, file45_13, file45_14,
+                file45_15, file45_16, file45_17]
+ninety_degrees = [file90_1, file90_2, file90_3, file90_4, file90_5, file90_6, file90_7, file90_8, file90_9, file90_10, file90_11, file90_12, file90_13, file90_14,
+                file90_15, file90_16, file90_17]
 
 
 
