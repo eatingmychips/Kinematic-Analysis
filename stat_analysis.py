@@ -153,18 +153,30 @@ def spread_plot(fig):
     ax1 = fig.add_subplot(2,2,1)
 
     for file in spread_0:
-        x,y = zip(*file[0])
+        temp = [(a,b) for a,b in file[0] if a < 0]
+        x,y = zip(*temp)
         ax1.scatter(x,y, marker = ".", color = 'blue')
-        x,y = zip(*file[1])
+
+        temp = [(a,b) for a,b in file[1] if a < 0]
+        x,y = zip(*temp)
         ax1.scatter(x,y, marker = ".", color = 'red')
-        x,y = zip(*file[2])
+
+        temp = [(a,b) for a,b in file[2] if a < 0]
+        x,y = zip(*temp)
         ax1.scatter(x,y, marker = ".", color = 'purple')
-        x,y = zip(*file[3])
+
+        temp = [(a,b) for a,b in file[3] if a > 0]
+        x,y = zip(*temp)
         ax1.scatter(x,y, marker = ".", color = 'orange')
-        x,y = zip(*file[4])
+
+        temp = [(a,b) for a,b in file[4] if a > 0]
+        x,y = zip(*temp)
         ax1.scatter(x,y, marker = ".", color = 'darkblue')
-        x,y = zip(*file[5])
+
+        temp = [(a,b) for a,b in file[5] if a > 0]
+        x,y = zip(*temp)
         ax1.scatter(x,y, marker = ".", color = 'aquamarine')
+
         x,y = zip(*file[6])
         ax1.scatter(x,y, marker = ".", color = 'greenyellow')
         x,y = zip(*file[7])
@@ -181,18 +193,30 @@ def spread_plot(fig):
 
     ax2 = fig.add_subplot(2,2,2)
     for file in spread_45:
-        x,y = zip(*file[0])
+        temp = [(a,b) for a,b in file[0] if a < 0]
+        x,y = zip(*temp)
         ax2.scatter(x,y, marker = ".", color = 'blue')
-        x,y = zip(*file[1])
+
+        temp = [(a,b) for a,b in file[1] if a < 0]
+        x,y = zip(*temp)
         ax2.scatter(x,y, marker = ".", color = 'red')
-        x,y = zip(*file[2])
+
+        temp = [(a,b) for a,b in file[2] if a < 0]
+        x,y = zip(*temp)
         ax2.scatter(x,y, marker = ".", color = 'purple')
-        x,y = zip(*file[3])
-        ax2.scatter(x,y,marker = ".", color = 'orange')
-        x,y = zip(*file[4])
+
+        temp = [(a,b) for a,b in file[3] if a > 0]
+        x,y = zip(*temp)
+        ax2.scatter(x,y, marker = ".", color = 'orange')
+
+        temp = [(a,b) for a,b in file[4] if a > 0]
+        x,y = zip(*temp)
         ax2.scatter(x,y, marker = ".", color = 'darkblue')
-        x,y = zip(*file[5])
+
+        temp = [(a,b) for a,b in file[5] if a > 0]
+        x,y = zip(*temp)
         ax2.scatter(x,y, marker = ".", color = 'aquamarine')
+
         x,y = zip(*file[6])
         ax2.scatter(x,y, marker = ".", color = 'greenyellow')
         x,y = zip(*file[7])
@@ -209,18 +233,29 @@ def spread_plot(fig):
 
     ax3 = fig.add_subplot(2,2,3)
     for file in spread_90:
-        x,y = zip(*file[0])
-        ax3.scatter(x,y,marker = ".", color = 'blue')
-        x,y = zip(*file[1])
-        ax3.scatter(x,y,marker = ".", color = 'red')
-        x,y = zip(*file[2])
-        ax3.scatter(x,y,marker = ".", color = 'purple')
-        x,y = zip(*file[3])
-        ax3.scatter(x,y,marker = ".", color = 'orange')
-        x,y = zip(*file[4])
-        ax3.scatter(x,y,marker = ".", color = 'darkblue')
-        x,y = zip(*file[5])
-        ax3.scatter(x,y,marker = ".", color = 'aquamarine')
+        temp = [(a,b) for a,b in file[0] if a < 0]
+        x,y = zip(*temp)
+        ax3.scatter(x,y, marker = ".", color = 'blue')
+
+        temp = [(a,b) for a,b in file[1] if a < 0]
+        x,y = zip(*temp)
+        ax3.scatter(x,y, marker = ".", color = 'red')
+
+        temp = [(a,b) for a,b in file[2] if a < 0]
+        x,y = zip(*temp)
+        ax3.scatter(x,y, marker = ".", color = 'purple')
+
+        temp = [(a,b) for a,b in file[3] if a > 0]
+        x,y = zip(*temp)
+        ax3.scatter(x,y, marker = ".", color = 'orange')
+
+        temp = [(a,b) for a,b in file[4] if a > 0]
+        x,y = zip(*temp)
+        ax3.scatter(x,y, marker = ".", color = 'darkblue')
+
+        temp = [(a,b) for a,b in file[5] if a > 0]
+        x,y = zip(*temp)
+        ax3.scatter(x,y, marker = ".", color = 'aquamarine')
         x,y = zip(*file[6])
         ax3.scatter(x,y,marker = ".", color = 'greenyellow')
         x,y = zip(*file[7])
