@@ -7,73 +7,39 @@ from matplotlib.ticker import MultipleLocator
 from scipy import signal
 from analysis import *
 import statistics as stat
-#Zero degrees files
-file0_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degreees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_0degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_6 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_7 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_8 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_9 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_0d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_10 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_11 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_12 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_13 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_0d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_14 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_15 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_16 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file0_17 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_0d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-
-#45 degrees files
-file45_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B1_45degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straight (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_6 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_7 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_8 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_9 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_45d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_10 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_11 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_12 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_13 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_45d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_14 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_15 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_16 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file45_17 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_45d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-
-#90 degrees files 
-file90_1 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_2 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_90degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_3 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_4 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_5 = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_6 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_7 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_8 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_9 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B3_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_10 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_11 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_12 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_13 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B2_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_14 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90dDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_15 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90d (4)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_16 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90d (3)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
-file90_17 = r"C:\Users\lachl\OneDrive\Thesis\Data\Videos30.05\movie20240530_B1_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+from os import listdir
 
 
+######## Here we import the files necessary for analysis, we also import the representative files for gait plotting ########
 
-#Declare a list of the files by walking angle
-zero_degrees = [file0_1, file0_2, file0_3, file0_4, file0_5, file0_6, file0_7, file0_8, file0_9, file0_10, file0_11, file0_12, file0_13, file0_14,
-                file0_15, file0_16, file0_17]
-forty_five_degrees = [file45_1, file45_2, file45_3, file45_4, file45_5, file45_6, file45_7, file45_8, file45_9, file45_10, file45_11, file45_12, file45_13, file45_14,
-                file45_15, file45_16, file45_17]
-ninety_degrees = [file90_1, file90_2, file90_3, file90_4, file90_5, file90_6, file90_7, file90_8, file90_9, file90_10, file90_11, file90_12, file90_13, file90_14,
-                file90_15, file90_16, file90_17]
+def find_csv_filenames( path_to_dir, suffix=".csv" ):
+    filenames = listdir(path_to_dir)
+    return [ filename for filename in filenames if filename.endswith( suffix ) ]
 
+file_names_zero = find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\0 degrees")
+file_names_forty = find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45 degrees")
+file_names_ninety = find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90 degrees")
+print(file_names_zero)
+
+zero_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\0 degrees\\"+x 
+             for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\0 degrees")]
+
+forty_five_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45 degrees\\"+x 
+                      for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45 degrees")]
+
+ninety_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90 degrees\\"+x 
+                  for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90 degrees")]
+
+
+#For gait phase plotting we include these representative sample
+file0_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+
+file45_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B2_45degrees_straightDLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+
+file90_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
+
+
+########### End of file collection ###########
 
 
 """This is the statistical analysis function and will be called ONCE per angle. 
@@ -140,15 +106,16 @@ def stat_analysis(files):
 
     return spread_parts, vel_avg, stand_tot
 
-#Put in seperate legs like a 'percentage' of its entire swing. 
-
-
+#### Here we call the statistical analysis function once per angle and get a spread, 
+#### velocity and stand/swing output. 
 spread_0, vel_0, stand_0 = stat_analysis(zero_degrees)
 spread_45, vel_45, stand_45 = stat_analysis(forty_five_degrees)
 spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
 
 
+##### Now we have ended the analysis and head into the plotting #####
 
+#Plotting the spread function 
 def spread_plot(fig):
     ax1 = fig.add_subplot(2,2,1)
 
@@ -272,7 +239,7 @@ def spread_plot(fig):
 
 
 
-
+###### Box and whisker plot for velocity  ######
 def velocity_plot(fig):
     vels = [vel_0, vel_45, vel_90]
     devs = [stat.stdev(x) for x in vels]
@@ -299,7 +266,7 @@ def velocity_plot(fig):
 
 
 
-
+###### Stand plot ######
 
 def stand_plot(fig): 
     
@@ -381,25 +348,18 @@ fig3 = plt.figure()
 stand_plot(fig3)
 velocity_plot(fig3)
 plt.show()
-# fig2 = plt.figure()
-
-# stand_plot(fig)
 
 
 
-
-
-"""Here we plot the gait phase. We will only choose specific files and show them one by one
-    This will reduce the need to extract meaningful data from all the phase plotting. The data
-    Analysis above will be used to show data averages. This is a bad comment I will fix it up later"""
+"""Here we plot the gait phase. We will only choose representative samples for the gait phase plotting"""
 
 ### Plotting of gait phase ###
 fig2 = plt.figure()
 
 ### Make gait phase plotting data from specific files ###
-left1_0, left2_0, left3_0, right1_0, right2_0, right3_0 = gait_phase_plotting(file0_4)
-left1_45, left2_45, left3_45, right1_45, right2_45, right3_45 = gait_phase_plotting(file45_5)
-left1_90, left2_90, left3_90, right1_90, right2_90, right3_90 = gait_phase_plotting(file90_3)
+left1_0, left2_0, left3_0, right1_0, right2_0, right3_0 = gait_phase_plotting(file0_gait)
+left1_45, left2_45, left3_45, right1_45, right2_45, right3_45 = gait_phase_plotting(file45_gait)
+left1_90, left2_90, left3_90, right1_90, right2_90, right3_90 = gait_phase_plotting(file90_gait)
 
 
 ax5 = fig2.add_subplot(2,2,1)
