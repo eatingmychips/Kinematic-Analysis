@@ -9,7 +9,7 @@ from scipy import signal
 
 #Path to csv file to read in 
 
-filename = r"C:\Users\lachl\OneDrive\Thesis\Data\DLCdata\45degrees_1DLC_resnet50_BeetleInclinedAnalysisMar1shuffle1_100000.csv"
+filename = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
 #Read the csv file 
@@ -152,7 +152,7 @@ parts = [left1, left2, left3,
 
 def body_vel(middle):
     body_v = []
-    sos = signal.butter(15,17, 'lp', fs = 100, output = 'sos')
+    sos = signal.butter(3,5, 'lp', fs = 100, output = 'sos')
     for i in size: 
         if i > 0: 
             delta = np.subtract(middle[i], middle[i-1])
@@ -228,35 +228,14 @@ for part in parts:
 
 #Do walking gaits during turning and straight walking. 
 
-def body_plot():
-    for part in parts: 
-        for i in range(len(left1[0:1000])): 
-            plt.plot(part[0:1000][i][0],part[0:1000][i][1], 'o')
-
-
 def angle_plot(offset, fig): 
     for i in size: 
         offset[i] = offset[i]*180/(np.pi)
     ax3 = fig.add_subplot(2,2,3)
     ax3.plot(size, offset, '-')
-    ax3.set_xlim(330,440)
+    #ax3.set_xlim(330,440)
     ax3.title.set_text('Body Angle vs Time')
     
-
-
-def dot_plot_left():
-    for i in size: 
-        plt.plot(i, left3[i][1]-middle[i][1], 'o', color = 'red')
-        plt.plot(i, left2[i][1]-middle[i][1] + 23, 'o', color = 'blue')
-        plt.plot(i, left1[i][1]-middle[i][1] + 52, 'o', color = 'green')
-
-        plt.plot(i, right1[i][1] - middle[i][1] + 25, 'o', color = 'yellow')
-        plt.plot(i, right2[i][1] - middle[i][1], 'o', color = 'purple')
-        plt.plot(i, right3[i][1] - middle[i][1] - 23, 'o', color = 'orange')
-
-    plt.ylim(-30,40)
-    plt.show()
-
 
 def line_plotting_example(fig):
     left1_1 = []
@@ -290,7 +269,7 @@ def line_plotting_example(fig):
     ax2.plot(size, right1_1, '-', color = 'red')
     ax2.plot(size, right2_1, '-', color = 'blue')
     ax2.plot(size, right3_1, '-', color = 'red')
-    ax2.set_xlim(330,440)
+    #ax2.set_xlim(330,440)
     #ax2.set_ylim(-100,100)
     ax2.title.set_text('Foot Vertical Displacement vs Time')
 
@@ -314,7 +293,7 @@ def gait_vel_plotting(fig):
     # Set grid to use minor tick locations. 
     ax1.grid(which = 'minor')
     ax1.set_ylim(0.7,1.1)
-    ax1.set_xlim(330,440)
+    #ax1.set_xlim(330,440)
     ax1.title.set_text('Foot Abs Velocty Vs Time')
 
 
@@ -322,8 +301,10 @@ def body_vel_plotting(fig, body_velocity):
     ax4 = fig.add_subplot(2,2,4)
     ax4.plot(range(len(body_velocity)), body_velocity)
     ax4.title.set_text('Body Velocity')
-    ax4.set_xlim(330,440)     
-    ax4.set_ylim(-0.5,4)        
+    #ax4.set_xlim(330,440)     
+    #ax4.set_ylim(-0.5,4)   
+    ax4.set_xlabel('Frames')
+    ax4.set_ylabel('Velocity')     
 
 
 
@@ -339,3 +320,5 @@ plt.show()
 #HOW GAIT CHANGES WITH WALKING ANGLE 
 #WHEN INCLINED, which direction does insect prefer to walk, does it prefer
 #to turn in a specific durection, walk upwards etc 
+#Implement actual time in gait plot. 
+
