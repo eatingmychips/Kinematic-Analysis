@@ -25,6 +25,7 @@ forty_five_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFin
 ninety_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90 degrees\\"+x 
                   for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90 degrees")]
 
+########### End of file collection ###########
 
 #For gait phase plotting we include these representative sample
 file0_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_0degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
@@ -34,7 +35,7 @@ file45_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240
 file90_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
-########### End of file collection ###########
+
 
 
 """This is the statistical analysis function and will be called ONCE per angle. 
@@ -244,20 +245,26 @@ def velocity_plot(fig):
     t_zero_fotry = (mean[0] - mean[1])/np.sqrt((devs[0]/np.sqrt(len(zero_degrees)))**2 + (devs[1]/np.sqrt(len(forty_five_degrees)))**2)
     t_zero_ninety = (mean[0] - mean[2])/np.sqrt((devs[0]/np.sqrt(len(zero_degrees)))**2 + (devs[2]/np.sqrt(len(ninety_degrees)))**2)
     t_forty_ninety = (mean[1] - mean[2])/np.sqrt((devs[1]/np.sqrt(len(forty_five_degrees)))**2 + (devs[2]/np.sqrt(len(ninety_degrees)))**2)
-    print('The Students t-test between 0 and 45 degrees is', t_zero_fotry)
-    print('The Students t-test between 0 and 90 degrees is', t_zero_ninety)
-    print('The Students t-test between 45 and 90 degrees is', t_forty_ninety)
+    print('***** Students T-test for avarage velocity *******')
+    print('The Students t-test between 0 and 45 degrees for average velocity is: ', t_zero_fotry)
+    print('The Students t-test between 0 and 90 degrees for average velocity is', t_zero_ninety)
+    print('The Students t-test between 45 and 90 degrees for average velocity is', t_forty_ninety)
 
-
-    label_v = ["0 degrees", "45 degrees", "90 degrees"]
     ax8 = fig.add_subplot(2,2,4)
-    ax8.set_xticklabels(label_v)
+    #ax8.set_xticklabels(["0 degrees", "45 degrees", "90 degrees"])
     ax8.boxplot(vels)
-    ax8.set_title("Velocity vs Angle of Inclination")
-    ax8.set_ylabel("Velocity")
+    ax8.set_title("Average Velocity vs Angle of Inclination")
+    ax8.set_ylabel("Avg Velocity (body lengths / second)")
+    print('\n')
+    print('**** Average Velocities *****')
     zero_mean = np.mean(vel_0)
     forty_mean = np.mean(vel_45)
     ninety_mean = np.mean(vel_90)
+    print('Average velocity at 0 degrees: ', zero_mean)
+    print('Average velocity at 45 degrees: ', forty_mean)
+    print('Average velocity at 90 degrees: ', ninety_mean)
+
+
 
 
 
