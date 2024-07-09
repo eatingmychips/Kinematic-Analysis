@@ -52,6 +52,13 @@ def stat_analysis(files):
     right2_gait = []
     right3_gait = []
 
+    left1_time_l = []
+    left2_time_l = []
+    left3_time_l = []
+    right1_time_l = []
+    right2_time_l = []
+    right3_time_l = []
+
     for file in files: 
         ## Read all files in and pass through moving average filter##
         parts = file_read(file)
@@ -76,12 +83,21 @@ def stat_analysis(files):
                         leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
         
         #Extract the 'length' of all the swing and stand phases. 
-        left1_gait.append(leg_time(leg_velocity[0]))
-        left2_gait.append(leg_time(leg_velocity[1]))
-        left3_gait.append(leg_time(leg_velocity[2]))
-        right1_gait.append(leg_time(leg_velocity[3]))
-        right2_gait.append(leg_time(leg_velocity[4]))
-        right3_gait.append(leg_time(leg_velocity[5]))
+        left1_gait.append(leg_time(leg_velocity[0])[0])
+        left2_gait.append(leg_time(leg_velocity[1])[0])
+        left3_gait.append(leg_time(leg_velocity[2])[0])
+        right1_gait.append(leg_time(leg_velocity[3])[0])
+        right2_gait.append(leg_time(leg_velocity[4])[0])
+        right3_gait.append(leg_time(leg_velocity[5])[0])
+
+        #Extract the time of the gait phase
+        left1_time_l.append(leg_time(leg_velocity[0])[1])
+        left2_time_l.append(leg_time(leg_velocity[1])[1])
+        left3_time_l.append(leg_time(leg_velocity[2])[1])
+        right1_time_l.append(leg_time(leg_velocity[3])[1])
+        right2_time_l.append(leg_time(leg_velocity[4])[1])
+        right3_time_l.append(leg_time(leg_velocity[5])[1])
+
 
         #Rotate Parts and calculate the average leg spread
         rot_parts = part_rotation(parts)
@@ -97,15 +113,16 @@ def stat_analysis(files):
 
     stand_tot = [left1_tot, left2_tot, left3_tot, right1_tot, right2_tot, right3_tot]
 
+    leg_times = [left1_time_l, left2_time_l, left3_time_l, 
+                 right1_time_l, right2_time_l, right3_time_l]
 
-
-    return spread_parts, vel_avg, stand_tot
+    return spread_parts, vel_avg, stand_tot, leg_times
 
 #### Here we call the statistical analysis function once per angle and get a spread, 
 #### velocity and stand/swing output. 
-spread_0, vel_0, stand_0 = stat_analysis(zero_degrees)
-spread_45, vel_45, stand_45 = stat_analysis(forty_five_degrees)
-spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
+spread_0, vel_0, stand_0, times_0 = stat_analysis(zero_degrees)
+spread_45, vel_45, stand_45, times_45 = stat_analysis(forty_five_degrees)
+spread_90, vel_90, stand_90, times_90 = stat_analysis(ninety_degrees)
 
 
 ##### Now we have ended the analysis and head into the plotting #####
@@ -255,17 +272,29 @@ def velocity_plot(fig):
     ax8.boxplot(vels)
     ax8.set_title("Velocity vs Angle of Inclination")
     ax8.set_ylabel("Velocity")
-    zero_mean = np.mean(vel_0)
-    forty_mean = np.mean(vel_45)
-    ninety_mean = np.mean(vel_90)
 
 
+### Plotting of times of leg swings ###
+def time_plot(fig):
+    feet_label = ["Left 1", "Left 2", "Left 3", "Right 1", "Right 2", "Right 3"]
+    ax9 = fig.add_subplot(2,2,1)
+    ax9.set_xticklabels(feet_label)
+    ax9.boxplot(times_0)
+    ax9.set_xlabel("Gait swing time at 0 degrees")
+
+    ax10 = fig.add_subplot(2,2,2)
+    ax10.set_xticklabels(feet_label)
+    ax10.boxplot(times_45)
+    ax10.set_xlabel("Gait swing time at 45 degrees")
+
+    ax11 = fig.add_subplot(2,2,3)
+    ax11.set_xticklabels(feet_label)
+    ax11.boxplot(times_90)
+    ax11.set_xlabel("Gait swing time at 90 degrees")
+    
 
 ###### Stand plot ######
-
-def stand_plot(fig): 
-    
-    
+def stand_plot(fig):  
     zero_stands = [item[0] for item in stand_0]
     zero_swings = [item[1] for item in stand_0]
 
@@ -332,6 +361,7 @@ def stand_plot(fig):
     ax5.set_xlim(-10,110)
 
 
+    
 
 
 ### Declare the first figure and run all plotting functions ###
@@ -344,8 +374,9 @@ stand_plot(fig3)
 velocity_plot(fig3)
 plt.show()
 
-
-
+fig4 = plt.figure()
+time_plot(fig4)
+plt.show()
 """Here we plot the gait phase. We will only choose representative samples for the gait phase plotting"""
 
 ### Plotting of gait phase ###
