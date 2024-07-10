@@ -53,6 +53,13 @@ def stat_analysis(files):
     right2_gait = []
     right3_gait = []
 
+    left1_time_l = []
+    left2_time_l = []
+    left3_time_l = []
+    right1_time_l = []
+    right2_time_l = []
+    right3_time_l = []
+
     for file in files: 
         ## Read all files in and pass through moving average filter##
         parts = file_read(file)
@@ -77,18 +84,27 @@ def stat_analysis(files):
                         leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
         
         #Extract the 'length' of all the swing and stand phases. 
-        left1_gait.append(leg_time(leg_velocity[0]))
-        left2_gait.append(leg_time(leg_velocity[1]))
-        left3_gait.append(leg_time(leg_velocity[2]))
-        right1_gait.append(leg_time(leg_velocity[3]))
-        right2_gait.append(leg_time(leg_velocity[4]))
-        right3_gait.append(leg_time(leg_velocity[5]))
+        left1_gait.append(leg_time(leg_velocity[0])[0])
+        left2_gait.append(leg_time(leg_velocity[1])[0])
+        left3_gait.append(leg_time(leg_velocity[2])[0])
+        right1_gait.append(leg_time(leg_velocity[3])[0])
+        right2_gait.append(leg_time(leg_velocity[4])[0])
+        right3_gait.append(leg_time(leg_velocity[5])[0])
+
+        #Extract the time of the gait phase
+        left1_time_l.append(leg_time(leg_velocity[0])[1])
+        left2_time_l.append(leg_time(leg_velocity[1])[1])
+        left3_time_l.append(leg_time(leg_velocity[2])[1])
+        right1_time_l.append(leg_time(leg_velocity[3])[1])
+        right2_time_l.append(leg_time(leg_velocity[4])[1])
+        right3_time_l.append(leg_time(leg_velocity[5])[1])
+
 
         #Rotate Parts and calculate the average leg spread
         rot_parts = part_rotation(parts)
         spread_parts.append(rot_parts)
 
-
+    print(vel_avg)
     left1_tot = [np.mean([item[1] for item in left1_gait]), np.mean([item[0] for item in left1_gait])]
     left2_tot = [np.mean([item[0] for item in left2_gait]), np.mean([item[1] for item in left2_gait])]
     left3_tot = [np.mean([item[1] for item in left3_gait]), np.mean([item[0] for item in left3_gait])]
@@ -98,15 +114,22 @@ def stat_analysis(files):
 
     stand_tot = [left1_tot, left2_tot, left3_tot, right1_tot, right2_tot, right3_tot]
 
+    leg_times = [left1_time_l, left2_time_l, left3_time_l, 
+                 right1_time_l, right2_time_l, right3_time_l]
+
+    time_list = left1_time_l + left2_time_l + left3_time_l + right1_time_l + right2_time_l + right3_time_l
+    avg_time = np.mean(time_list)
+    
+
+    return spread_parts, vel_avg, stand_tot, time_list, leg_times
 
 
-    return spread_parts, vel_avg, stand_tot
 
 #### Here we call the statistical analysis function once per angle and get a spread, 
 #### velocity and stand/swing output. 
-spread_0, vel_0, stand_0 = stat_analysis(zero_degrees)
-spread_45, vel_45, stand_45 = stat_analysis(forty_five_degrees)
-spread_90, vel_90, stand_90 = stat_analysis(ninety_degrees)
+spread_0, vel_0, stand_0, time_0, times_0 = stat_analysis(zero_degrees)
+spread_45, vel_45, stand_45, time_45, times_45 = stat_analysis(forty_five_degrees)
+spread_90, vel_90, stand_90, time_90, times_90 = stat_analysis(ninety_degrees)
 
 
 ##### Now we have ended the analysis and head into the plotting #####
@@ -151,7 +174,7 @@ def spread_plot(fig):
         ax1.annotate('Bottom', xy = (0,0), xytext=(-5,-5), color = 'black')
         ax1.set_xlim(-80,80)
         ax1.set_ylim(-35,140)
-    ax1.set_title("Leg Spread 0 degrees")
+        ax1.set_title("Leg Spread 0 degrees")
 
 
     ax2 = fig.add_subplot(2,2,2)
@@ -267,12 +290,47 @@ def velocity_plot(fig):
 
 
 
+### Plotting of times of leg swings ###
+def time_plot(fig):
+    label = ["0 degrees", "45 degrees", "90 degrees"]
+    times = [time_0, time_45, time_90]
+    ax9 = fig.add_subplot(2,2,4)
+    ax9.set_xticklabels(label)
+    ax9.boxplot(times)
+    ax9.set_ylabel("Gait Cycle Time (s)")
+    ax9.set_title("Gait Cycle Time (s) vs Angle of inclination")
+    
+    print("Average gait cycle time for 0 degrees: ", np.mean(time_0), "\n", "Average gait cycle time for 45 degrees: ", np.mean(time_45), 
+          "\n", "Average gait cycle time for 90 degrees: ", np.mean(time_90))
+
+
+### Time Plot with individual legs ###
+def leg_time_plot(fig):
+    feet_label = ["Left 1", "Left 2", "Left 3", "Right 1", "Right 2", "Right 3"]
+    ax9 = fig.add_subplot(2,2,1)
+    ax9.set_xticklabels(feet_label)
+    ax9.boxplot(times_0)
+    ax9.set_title("Gait swing time at 0 degrees")
+    ax9.set_ylim(0,1)
+    ax9.set_ylabel("Time (seconds)")
+
+    ax10 = fig.add_subplot(2,2,2)
+    ax10.set_xticklabels(feet_label)
+    ax10.boxplot(times_45)
+    ax10.set_title("Gait swing time at 45 degrees")
+    ax10.set_ylim(0,1)
+    ax10.set_ylabel("Time (seconds)")
+
+    ax11 = fig.add_subplot(2,2,3)
+    ax11.set_xticklabels(feet_label)
+    ax11.boxplot(times_90)
+    ax11.set_title("Gait swing time at 90 degrees")
+    ax11.set_ylim(0,1)
+    ax11.set_ylabel("Time (seconds)")
+
 
 ###### Stand plot ######
-
-def stand_plot(fig): 
-    
-    
+def stand_plot(fig):  
     zero_stands = [item[0] for item in stand_0]
     zero_swings = [item[1] for item in stand_0]
 
@@ -339,19 +397,23 @@ def stand_plot(fig):
     ax5.set_xlim(-10,110)
 
 
+    
 
 
 ### Declare the first figure and run all plotting functions ###
 fig1 = plt.figure()
 spread_plot(fig1)
+velocity_plot(fig1)
 plt.show()
 
 fig3 = plt.figure()
 stand_plot(fig3)
-velocity_plot(fig3)
+time_plot(fig3)
 plt.show()
 
-
+fig4 = plt.figure()
+leg_time_plot(fig4)
+plt.show()
 
 """Here we plot the gait phase. We will only choose representative samples for the gait phase plotting"""
 
