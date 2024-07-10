@@ -120,15 +120,15 @@ def stat_analysis(files):
     avg_time = np.mean(time_list)
     
 
-    return spread_parts, vel_avg, stand_tot, time_list
+    return spread_parts, vel_avg, stand_tot, time_list, leg_times
 
 
 
 #### Here we call the statistical analysis function once per angle and get a spread, 
 #### velocity and stand/swing output. 
-spread_0, vel_0, stand_0, time_0 = stat_analysis(zero_degrees)
-spread_45, vel_45, stand_45, time_45 = stat_analysis(forty_five_degrees)
-spread_90, vel_90, stand_90, time_90 = stat_analysis(ninety_degrees)
+spread_0, vel_0, stand_0, time_0, times_0 = stat_analysis(zero_degrees)
+spread_45, vel_45, stand_45, time_45, times_45 = stat_analysis(forty_five_degrees)
+spread_90, vel_90, stand_90, time_90, times_90 = stat_analysis(ninety_degrees)
 
 
 ##### Now we have ended the analysis and head into the plotting #####
@@ -293,6 +293,25 @@ def time_plot(fig):
     print("Average gait cycle time for 0 degrees: ", np.mean(time_0), "\n", "Average gait cycle time for 45 degrees: ", np.mean(time_45), 
           "\n", "Average gait cycle time for 90 degrees: ", np.mean(time_90))
 
+def leg_time_plot(fig):
+    feet_label = ["Left 1", "Left 2", "Left 3", "Right 1", "Right 2", "Right 3"]
+    ax9 = fig.add_subplot(2,2,1)
+    ax9.set_xticklabels(feet_label)
+    ax9.boxplot(times_0)
+    ax9.set_xlabel("Gait swing time at 0 degrees")
+    ax9.set_ylim(0,1)
+    
+    ax10 = fig.add_subplot(2,2,2)
+    ax10.set_xticklabels(feet_label)
+    ax10.boxplot(times_45)
+    ax10.set_xlabel("Gait swing time at 45 degrees")
+    ax10.set_ylim(0,1)
+
+    ax11 = fig.add_subplot(2,2,3)
+    ax11.set_xticklabels(feet_label)
+    ax11.boxplot(times_90)
+    ax11.set_xlabel("Gait swing time at 90 degrees")
+    ax11.set_ylim(0,1)
 
 ###### Stand plot ######
 def stand_plot(fig):  
@@ -376,7 +395,9 @@ stand_plot(fig3)
 time_plot(fig3)
 plt.show()
 
-
+fig4 = plt.figure()
+leg_time_plot(fig4)
+plt.show()
 
 """Here we plot the gait phase. We will only choose representative samples for the gait phase plotting"""
 
