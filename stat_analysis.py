@@ -103,7 +103,7 @@ def stat_analysis(files):
         rot_parts = part_rotation(parts)
         spread_parts.append(rot_parts)
 
-
+    print(vel_avg)
     left1_tot = [np.mean([item[1] for item in left1_gait]), np.mean([item[0] for item in left1_gait])]
     left2_tot = [np.mean([item[0] for item in left2_gait]), np.mean([item[1] for item in left2_gait])]
     left3_tot = [np.mean([item[1] for item in left3_gait]), np.mean([item[0] for item in left3_gait])]
@@ -173,7 +173,7 @@ def spread_plot(fig):
         ax1.annotate('Bottom', xy = (0,0), xytext=(-5,-5), color = 'black')
         ax1.set_xlim(-80,80)
         ax1.set_ylim(-35,140)
-    ax1.set_title("Leg Spread 0 degrees")
+        ax1.set_title("Leg Spread 0 degrees")
 
 
     ax2 = fig.add_subplot(2,2,2)
@@ -293,25 +293,31 @@ def time_plot(fig):
     print("Average gait cycle time for 0 degrees: ", np.mean(time_0), "\n", "Average gait cycle time for 45 degrees: ", np.mean(time_45), 
           "\n", "Average gait cycle time for 90 degrees: ", np.mean(time_90))
 
+
+### Time Plot with individual legs ###
 def leg_time_plot(fig):
     feet_label = ["Left 1", "Left 2", "Left 3", "Right 1", "Right 2", "Right 3"]
     ax9 = fig.add_subplot(2,2,1)
     ax9.set_xticklabels(feet_label)
     ax9.boxplot(times_0)
-    ax9.set_xlabel("Gait swing time at 0 degrees")
+    ax9.set_title("Gait swing time at 0 degrees")
     ax9.set_ylim(0,1)
-    
+    ax9.set_ylabel("Time (seconds)")
+
     ax10 = fig.add_subplot(2,2,2)
     ax10.set_xticklabels(feet_label)
     ax10.boxplot(times_45)
-    ax10.set_xlabel("Gait swing time at 45 degrees")
+    ax10.set_title("Gait swing time at 45 degrees")
     ax10.set_ylim(0,1)
+    ax10.set_ylabel("Time (seconds)")
 
     ax11 = fig.add_subplot(2,2,3)
     ax11.set_xticklabels(feet_label)
     ax11.boxplot(times_90)
-    ax11.set_xlabel("Gait swing time at 90 degrees")
+    ax11.set_title("Gait swing time at 90 degrees")
     ax11.set_ylim(0,1)
+    ax11.set_ylabel("Time (seconds)")
+
 
 ###### Stand plot ######
 def stand_plot(fig):  
