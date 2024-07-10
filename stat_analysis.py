@@ -116,13 +116,19 @@ def stat_analysis(files):
     leg_times = [left1_time_l, left2_time_l, left3_time_l, 
                  right1_time_l, right2_time_l, right3_time_l]
 
-    return spread_parts, vel_avg, stand_tot, leg_times
+    time_list = left1_time_l + left2_time_l + left3_time_l + right1_time_l + right2_time_l + right3_time_l
+    avg_time = np.mean(time_list)
+    
+
+    return spread_parts, vel_avg, stand_tot, time_list
+
+
 
 #### Here we call the statistical analysis function once per angle and get a spread, 
 #### velocity and stand/swing output. 
-spread_0, vel_0, stand_0, times_0 = stat_analysis(zero_degrees)
-spread_45, vel_45, stand_45, times_45 = stat_analysis(forty_five_degrees)
-spread_90, vel_90, stand_90, times_90 = stat_analysis(ninety_degrees)
+spread_0, vel_0, stand_0, time_0 = stat_analysis(zero_degrees)
+spread_45, vel_45, stand_45, time_45 = stat_analysis(forty_five_degrees)
+spread_90, vel_90, stand_90, time_90 = stat_analysis(ninety_degrees)
 
 
 ##### Now we have ended the analysis and head into the plotting #####
@@ -276,22 +282,17 @@ def velocity_plot(fig):
 
 ### Plotting of times of leg swings ###
 def time_plot(fig):
-    feet_label = ["Left 1", "Left 2", "Left 3", "Right 1", "Right 2", "Right 3"]
-    ax9 = fig.add_subplot(2,2,1)
-    ax9.set_xticklabels(feet_label)
-    ax9.boxplot(times_0)
-    ax9.set_xlabel("Gait swing time at 0 degrees")
-
-    ax10 = fig.add_subplot(2,2,2)
-    ax10.set_xticklabels(feet_label)
-    ax10.boxplot(times_45)
-    ax10.set_xlabel("Gait swing time at 45 degrees")
-
-    ax11 = fig.add_subplot(2,2,3)
-    ax11.set_xticklabels(feet_label)
-    ax11.boxplot(times_90)
-    ax11.set_xlabel("Gait swing time at 90 degrees")
+    label = ["0 degrees", "45 degrees", "90 degrees"]
+    times = [time_0, time_45, time_90]
+    ax9 = fig.add_subplot(2,2,4)
+    ax9.set_xticklabels(label)
+    ax9.boxplot(times)
+    ax9.set_ylabel("Gait Cycle Time (s)")
+    ax9.set_title("Gait Cycle Time (s) vs Angle of inclination")
     
+    print("Average gait cycle time for 0 degrees: ", np.mean(time_0), "\n", "Average gait cycle time for 45 degrees: ", np.mean(time_45), 
+          "\n", "Average gait cycle time for 90 degrees: ", np.mean(time_90))
+
 
 ###### Stand plot ######
 def stand_plot(fig):  
@@ -367,16 +368,16 @@ def stand_plot(fig):
 ### Declare the first figure and run all plotting functions ###
 fig1 = plt.figure()
 spread_plot(fig1)
+velocity_plot(fig1)
 plt.show()
 
 fig3 = plt.figure()
 stand_plot(fig3)
-velocity_plot(fig3)
+time_plot(fig3)
 plt.show()
 
-fig4 = plt.figure()
-time_plot(fig4)
-plt.show()
+
+
 """Here we plot the gait phase. We will only choose representative samples for the gait phase plotting"""
 
 ### Plotting of gait phase ###

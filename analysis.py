@@ -207,11 +207,8 @@ def leg_time(vel):
     gait_time = (len(stand) + len(swing))*1/100
     avg_swing = np.mean(swing)
     avg_stand = np.mean(stand)
+    gait_time = (avg_swing + avg_stand)*1/100
     
-    
-    #Pull out time of actual standing and swinging here 
-
-
     gait = [avg_stand/(avg_stand+avg_swing)*100, avg_swing/(avg_stand + avg_swing)*100]
     
     return [gait, gait_time]
