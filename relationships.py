@@ -35,22 +35,20 @@ def spread_extraction(leg):
     leg_y = [leg[i][1] for i in range(len(leg))]
     
     if leg_x[4] < 0: 
-        max_x = np.mean(leg_x) - 3.5*stat.stdev(leg_x)
+        max_x = np.median(leg_x) - 3.5*stat.stdev(leg_x)
     else: 
-        max_x = np.mean(leg_x) + 3.5*stat.stdev(leg_x)
+        max_x = np.median(leg_x) + 3.5*stat.stdev(leg_x)
         
-    min_y = min(leg_y)
-    max_y = max(leg_y)
-    ver = abs(max_y - min_y)
+    vert_top = np.median(leg_y) + 3.5*stat.stdev(leg_y)
+    vert_bot = np.median(leg_y) - 3.5*stat.stdev(leg_y)
+    vert = vert_top - vert_bot
 
-    return max_x, ver
+    return max_x, vert
 
 
 def rel_analysis(files):
     #Declare empty lists for averages of velocity, leg spread and gait timing
     vel_avg = []
-    spread_horizontal = []
-    spread_vertical = []
     cycle_times = []
     comb_left1_hor = []
     comb_left2_hor = []
@@ -58,6 +56,13 @@ def rel_analysis(files):
     comb_right1_hor = []
     comb_right2_hor = []
     comb_right3_hor = []
+
+    comb_left1_ver = []
+    comb_left2_ver = []
+    comb_left3_ver = []
+    comb_right1_ver = []
+    comb_right2_ver = []
+    comb_right3_ver = []
 
 
     left1_time = []
@@ -128,9 +133,23 @@ def rel_analysis(files):
         comb_right2_hor.append(hor_spread_right2)
         comb_right3_hor.append(hor_spread_right3)
 
+        comb_left1_ver.append(ver_spread_left1)
+        comb_left2_ver.append(ver_spread_left2)
+        comb_left3_ver.append(ver_spread_left3)
+
+        comb_right1_ver.append(ver_spread_right1)
+        comb_right2_ver.append(ver_spread_right2)
+        comb_right3_ver.append(ver_spread_right3)
+
+
+
         horizontal_spread = [comb_left1_hor, comb_left2_hor, comb_left3_hor, 
                              comb_right1_hor, comb_right2_hor, comb_right3_hor]
         
+        vert_spread = [comb_left1_ver, comb_left2_ver, comb_left3_ver, 
+                       comb_right1_ver, comb_right2_ver, comb_right3_ver]
+        
+
         ### Calculate time of gait swing ###
     
         left1_time.append(np.mean(leg_time(leg_velocity[0])[1]))
@@ -145,7 +164,7 @@ def rel_analysis(files):
 
 
 
-    return vel_avg, horizontal_spread, cycle_times
+    return vel_avg, horizontal_spread, cycle_times, vert_spread
 
 
 
@@ -153,7 +172,7 @@ def rel_analysis(files):
 #### velocity and stand/swing output. 
 
 
-vel, horizontal_spread, cycle_times = rel_analysis(all_files)
+vel, horizontal_spread, cycle_times, vert_spread = rel_analysis(all_files)
 
 
 
@@ -237,6 +256,43 @@ def time_plot(fig):
     ax12.set_ylabel("Velocity")
 
 
+def vert_spread_plot(fig):
+    ax13 = fig.add_subplot(2,3,1)
+    ax13.scatter(vert_spread[0], vel)
+    ax13.set_title("Leg: Left1, Velocity vs Vertical Spread")
+    ax13.set_xlabel("Vertical Spread")
+    ax13.set_ylabel("Velocity")
+
+    ax14 = fig.add_subplot(2,3,2)
+    ax14.scatter(vert_spread[1], vel)
+    ax14.set_title("Leg: Left2, Velocity vs Vertical Spread")
+    ax14.set_xlabel("Vertical Spread")
+    ax14.set_ylabel("Velocity")
+
+    ax15 = fig.add_subplot(2,3,3)
+    ax15.scatter(vert_spread[2], vel)
+    ax15.set_title("Leg: Left3, Velocity vs Vertical Spread")
+    ax15.set_xlabel("Vertical Spread")
+    ax15.set_ylabel("Velocity")
+
+    ax16 = fig.add_subplot(2,3,4)
+    ax16.scatter(vert_spread[3], vel)
+    ax16.set_title("Leg: Right1, Velocity vs Vertical Spread")
+    ax16.set_xlabel("Vertical Spread")
+    ax16.set_ylabel("Velocity")
+
+    ax17 = fig.add_subplot(2,3,5)
+    ax17.scatter(vert_spread[4], vel)
+    ax17.set_title("Leg: Right2, Velocity vs Vertical Spread")
+    ax17.set_xlabel("Vertical Spread")
+    ax17.set_ylabel("Velocity")
+
+    ax18 = fig.add_subplot(2,3,6)
+    ax18.scatter(vert_spread[5], vel)
+    ax18.set_title("Leg: RIght3, Velocity vs Vertical Spread")
+    ax18.set_xlabel("Vertical Spread")
+    ax18.set_ylabel("Velocity") 
+
 
 fig1 = plt.figure()
 horizontal_spread_plot(fig1)
@@ -244,4 +300,8 @@ plt.show()
 
 fig2 = plt.figure()
 time_plot(fig2)
+plt.show()
+
+fig3 = plt.figure()
+vert_spread_plot(fig3)
 plt.show()
