@@ -443,7 +443,7 @@ ax5.annotate('right 3', xy = (size0[0], right3_0[0]), xytext=(-12+size0[0], 25+ 
 ax5.title.set_text('Foot Vertical Displacement vs Time (0 degrees)')
 ax5.set_xlim(-15,165)
 ax5.set_xlabel('Time (frames)')
-ax5.set_ylabel('Position)')
+ax5.set_ylabel('Position')
 ax5.set_facecolor('black')
 
 ### Plot phase for 45 degrees ###

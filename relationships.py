@@ -28,6 +28,7 @@ ninety_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalDa
 
 all_files = zero_degrees + forty_five_degrees + ninety_degrees
 
+### Add coloured dots to indicate 0, 45, 90 degrees ###
 
 
 def spread_extraction(leg):
