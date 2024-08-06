@@ -150,7 +150,6 @@ def file_read(file):
 def body_vel(middle):
     body_v = []
     size = range(len(middle))
-    #sos = signal.butter(2, 4, 'lp', fs = 100, output = 'sos')
     for i in size: 
         if i > 1: 
             delta = np.subtract(middle[i], middle[i-1])

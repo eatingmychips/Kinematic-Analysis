@@ -10,24 +10,6 @@ import statistics as stat
 from os import listdir
 
 
-######## Here we import the files necessary for turning analysis #######
-
-def find_csv_filenames( path_to_dir, suffix=".csv" ):
-    filenames = listdir(path_to_dir)
-    return [ filename for filename in filenames if filename.endswith( suffix ) ]
-
-zero_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\0degreesTurning"+x 
-             for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\0degreesTurning")]
-
-forty_five_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45degreesTurning"+x 
-                      for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45degreesTurning")]
-
-ninety_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90degreesTurning"+x 
-                  for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90degreesTurning")]
-
-
-
-
 
 
 def file_read(file):
@@ -172,3 +154,101 @@ def file_read(file):
     parts = [left1, left2, left3, right1, right2, right3, top, middle, bottom]
     
     return parts
+
+def part_rotation(parts):
+    diff = []
+    offset = []
+    middle = parts[7]
+    bottom = parts[8]
+    size = range(len(middle))
+    for i in size: 
+        diff.append(np.subtract(middle[i], bottom[i]))
+        offset.append(np.arctan2(diff[i][1],diff[i][0]))
+
+
+    #Define rotation function to rotate point about an angle
+    def rotation(angle, point):
+        rotation = [[np.cos(-np.pi/2 - angle), -np.sin(-np.pi/2 - angle)],
+                    [np.sin(-np.pi/2 - angle), np.cos(-np.pi/2 - angle)]]
+
+        newpoint = np.matmul(rotation,point)
+
+        return newpoint
+
+    #Here we iterate through each part in the list of body parts. 
+    for part in parts: 
+        for i in size: 
+            part[i] = np.subtract(part[i], bottom[i])
+            part[i] = rotation(offset[i],part[i])
+            part[i][1] = -1*part[i][1]
+
+    return parts
+
+def heading_angle(parts): 
+    diff = []
+    angle = []
+    middle = parts[7]
+    bottom = parts[8]
+    size = range(len(middle))
+    for i in size: 
+        diff.append(np.subtract(middle[i], bottom[i]))
+        angle.append(180/np.pi*np.arctan2(diff[i][1], diff[i][0]))
+    angle = pd.Series(angle)
+    angle = round(angle.ewm(alpha = 0.1, adjust= False).mean(), 3)
+    angle = angle.tolist()   
+    return angle 
+
+def ang_vel(angle):
+    rot_speed = []
+    size = range(len(angle))
+
+    for i in size: 
+        if i > 1: 
+            speed = round((angle[i] - angle[i-1])/0.01, 3)
+            rot_speed.append(speed)
+
+
+    return rot_speed
+
+
+def turning(angle,rot_speed):
+    size = range(len(angle))
+    for i in size: 
+        if i > 5: 
+            if abs(angle[i] - angle[i-4]) > 5:
+                begin = i-2
+                break
+            else:
+                begin = 0
+            
+    for j in range(begin, len(angle)):
+        if j > begin + 10:
+            if abs(angle[j] - angle[j-5]) < 2:
+                last = j
+                break
+            else: 
+                last = 1
+
+    turning = angle[begin:last]
+    speed = rot_speed[begin:last]
+
+    return turning, speed
+
+def body_vel(middle):
+    body_v = []
+    size = range(len(middle))
+    #sos = signal.butter(2, 4, 'lp', fs = 100, output = 'sos')
+    for i in size: 
+        if i > 1: 
+            delta = np.subtract(middle[i], middle[i-1])
+            norm = np.linalg.norm(delta)
+            body_v.append(norm)
+        
+    body_v = pd.Series(body_v)
+    body_v = round(body_v.ewm(alpha = 0.005, adjust= False).mean(), 5)
+    body_v = body_v.tolist()
+
+    return body_v
+
+def turn_distance(turning_angles):
+    return abs(turning_angles[0] - turning_angles[-1])
