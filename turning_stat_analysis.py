@@ -26,7 +26,7 @@ forty_five_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFin
 ninety_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90degreesTurning\\"+x 
                   for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90degreesTurning")]
 
-understanding = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\0degreesTurning\B4_0degrees_turning_1DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"]
+understanding = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45degreesTurning\\B3_45degrees_turning_4DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"]
 
 def stat_analysis(files): 
     heading_angles = []
@@ -46,24 +46,26 @@ def stat_analysis(files):
         #Gather the list of rotational speeds
         rotational_speed.append(ang_vel(heading_angle(parts)))
 
-        #Extract the moments of actually turning 
         ##### MAYBE INSERT GETTING BEFORE AND AFTER  
-        for heading, speed in zip(heading_angles, rotational_speed):
-            turning_angles, turning_speed = turning(heading, speed)
-
-        turning_angles_comb.append(turning_angles)
-        turning_speed_comb.append(np.mean(turning_speed))
+        
 
         #turn_distance_comb.append(turn_distance(turning_angles))
 
-        print("For file name, ", file, '\n', "Average velocity is, ", np.mean(turning_speed), " \n And we see the angles are: ", turning_angles)
+
+    for heading, speed in zip(heading_angles, rotational_speed):
+            turning_angles, turning_speed = turning(heading, speed)
+            turning_angles_comb.append(turning_angles)
+            turning_speed_comb.append(np.mean(turning_speed))
+         
+    for turning_angles, file in zip(turning_angles_comb, files):
+         print("For file: ", file, " \n Length of turn is: ", len(turning_angles), " \n And we see the angles are: ", turning_angles)
 
     return turning_speed_comb
 
 w_0 = stat_analysis(zero_degrees)
-# w_45 = stat_analysis(forty_five_degrees)
-# w_90 = stat_analysis(ninety_degrees)
-print(w_0)
+w_45 = stat_analysis(forty_five_degrees)
+w_90 = stat_analysis(ninety_degrees)
+
 
 
 def velocity_plot(fig):
@@ -83,18 +85,18 @@ def velocity_plot(fig):
     ax8 = fig.add_subplot(2,2,4)
     #ax8.set_xticklabels(["0 degrees", "45 degrees", "90 degrees"])
     ax8.boxplot(vels)
-    ax8.set_title("Average Velocity vs Angle of Inclination")
+    ax8.set_title("Average Angular Velocity vs Angle of Inclination")
     ax8.set_ylabel("Avg Velocity (body lengths / second)")
     print('\n')
     print('**** Average Velocities *****')
     zero_mean = np.mean(w_0)
     forty_mean = np.mean(w_45)
     ninety_mean = np.mean(w_90)
-    print('Average velocity at 0 degrees: ', zero_mean)
-    print('Average velocity at 45 degrees: ', forty_mean)
-    print('Average velocity at 90 degrees: ', ninety_mean)
+    print('Average angular velocity at 0 degrees: ', abs(zero_mean))
+    print('Average angular velocity at 45 degrees: ', abs(forty_mean))
+    print('Average angular velocity at 90 degrees: ', abs(ninety_mean))
 
 
-# fig1 = plt.figure()
-# velocity_plot(fig1)
-# plt.show()
+fig1 = plt.figure()
+velocity_plot(fig1)
+plt.show()

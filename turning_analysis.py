@@ -192,7 +192,7 @@ def heading_angle(parts):
     size = range(len(middle))
     for i in size: 
         diff.append(np.subtract(middle[i], bottom[i]))
-        angle.append(180/np.pi*np.arctan2(diff[i][1], diff[i][0]))
+        angle.append(180+180/np.pi*np.arctan2(diff[i][1], diff[i][0]))
     angle = pd.Series(angle)
     angle = round(angle.ewm(alpha = 0.1, adjust= False).mean(), 3)
     angle = angle.tolist()   
@@ -213,26 +213,57 @@ def ang_vel(angle):
 
 def turning(angle,rot_speed):
     size = range(len(angle))
+    begin_flag = False
+    end_flag = False
     for i in size: 
         if i > 5: 
-            if abs(angle[i] - angle[i-4]) > 5:
-                begin = i-2
+            if abs(angle[i] - angle[i-3]) > 3.5:
+                begin = i-3
+                begin_flag = True
+                for j in range(begin, len(angle)-1):
+                    if j > begin + 5:
+                        if abs(angle[j] - angle[j-5]) < 2:
+                            print('we are here')
+                            last = j
+                            end_flag = True
+                            break
                 break
-            else:
-                begin = 0
-            
-    for j in range(begin, len(angle)):
-        if j > begin + 10:
-            if abs(angle[j] - angle[j-5]) < 2:
-                last = j
-                break
-            else: 
-                last = 1
+        
+        
+    if begin_flag == False or end_flag == False:
+        front_ind = 0
+        back_ind = len(angle) - 1
+        total_diff = abs(angle[front_ind] - angle[back_ind])
+        while front_ind <= back_ind:
+            diff = abs(angle[front_ind] - angle[back_ind])
+            if abs(diff - total_diff) >= 10:
+                if not begin_flag:
+                    print('Weird front way')
+                    begin = front_ind
+                    begin_flag = True
+                    if not end_flag: 
+                        print('Weird back way ')
+                        last = back_ind
+                        end_flag = True
+                        break
+                    
+                    break
+            front_ind += 1
+            back_ind -= 1
+    
+    if end_flag == False: 
+        print(' entire end ')
+        last = len(angle) - 1
+    
+    if begin_flag == False:
+        print('entire begin') 
+        begin = 0
 
     turning = angle[begin:last]
     speed = rot_speed[begin:last]
 
     return turning, speed
+
 
 def body_vel(middle):
     body_v = []
