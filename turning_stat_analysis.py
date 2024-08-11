@@ -31,72 +31,59 @@ understanding = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalDat
 def stat_analysis(files): 
     heading_angles = []
     rotational_speed = []
-
-    turning_angles_comb = []
-    turning_speed_comb = []
-
-    turn_distance_comb = []
-
+    
+    cutoff_list = []
     for file in files: 
         parts = file_read(file)
-
+        left1 = moving_avg(parts[0])
+        left2 = moving_avg(parts[1])
+        left3 = moving_avg(parts[2])
+        right1 = moving_avg(parts[3])
+        right2 = moving_avg(parts[4])
+        right3 = moving_avg(parts[5])
+        top = moving_avg(parts[6])
+        middle = moving_avg(parts[7])
+        bottom = moving_avg(parts[8])
+        print(len(middle))
+        print(len(left1))
         #Gather the list of heading angles
-        heading_angles.append(heading_angle(parts))
-    
+        heading_angles.append(heading_angle(middle, bottom))
+        print(len(heading_angle(middle, bottom)))
         #Gather the list of rotational speeds
-        rotational_speed.append(ang_vel(heading_angle(parts)))
+        rotational_speed.append(ang_vel(heading_angle(middle,bottom)))
 
-        ##### MAYBE INSERT GETTING BEFORE AND AFTER  
         
+        ##### MAYBE INSERT GETTING BEFORE AND AFTER  
+        startstop = turning(heading_angle(middle, bottom), rotational_speed)
+        cutoff_list.append(startstop)
 
+        leg_velocity = [leg_abs_velocity(left1), leg_abs_velocity(left2), leg_abs_velocity(left3),
+                        leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
+        
         #turn_distance_comb.append(turn_distance(turning_angles))
+        #Plot gait pattern as swing stand over turn 
+        #Plot leg swing scattern. 
 
+        fig1 = plt.figure()
+        ax1 = fig1.add_subplot(2,1,1)
+        ax1.plot(heading_angle(middle, bottom))
+        thickness = 0.9
 
-    for heading, speed in zip(heading_angles, rotational_speed):
-            turning_angles, turning_speed = turning(heading, speed)
-            turning_angles_comb.append(turning_angles)
-            turning_speed_comb.append(np.mean(turning_speed))
-         
-    for turning_angles, file in zip(turning_angles_comb, files):
-         print("For file: ", file, " \n Length of turn is: ", len(turning_angles), " \n And we see the angles are: ", turning_angles)
+        ax2 = fig1.add_subplot(2,1,2)
+        for i, leg_velocity in enumerate(leg_velocity):
+        # Loop over each element in the binary list
+            for j, value in enumerate(leg_velocity):
+                if value == 1:
+                    # Plot a bar if the value is 1
+                    ax2.barh(i, 1, left=j, height=thickness, color='black')
+        
+        plt.show()
 
-    return turning_speed_comb
+    return cutoff_list, heading_angles
 
-w_0 = stat_analysis(zero_degrees)
-w_45 = stat_analysis(forty_five_degrees)
+#w_0 = stat_analysis(zero_degrees)
+#w_45 = stat_analysis(forty_five_degrees)
 w_90 = stat_analysis(ninety_degrees)
 
 
 
-def velocity_plot(fig):
-    vels = [w_0, w_45, w_90]
-    devs = [stat.stdev(x) for x in vels]
-    mean = [stat.mean(x) for x in vels]
-
-    #### t-test (Welchs https://en.wikipedia.org/wiki/Welch%27s_t-test) ####
-    t_zero_fotry = (mean[0] - mean[1])/np.sqrt((devs[0]/np.sqrt(len(zero_degrees)))**2 + (devs[1]/np.sqrt(len(forty_five_degrees)))**2)
-    t_zero_ninety = (mean[0] - mean[2])/np.sqrt((devs[0]/np.sqrt(len(zero_degrees)))**2 + (devs[2]/np.sqrt(len(ninety_degrees)))**2)
-    t_forty_ninety = (mean[1] - mean[2])/np.sqrt((devs[1]/np.sqrt(len(forty_five_degrees)))**2 + (devs[2]/np.sqrt(len(ninety_degrees)))**2)
-    print('***** Students T-test for avarage velocity *******')
-    print('The Students t-test between 0 and 45 degrees for average velocity is: ', t_zero_fotry)
-    print('The Students t-test between 0 and 90 degrees for average velocity is', t_zero_ninety)
-    print('The Students t-test between 45 and 90 degrees for average velocity is', t_forty_ninety)
-
-    ax8 = fig.add_subplot(2,2,4)
-    #ax8.set_xticklabels(["0 degrees", "45 degrees", "90 degrees"])
-    ax8.boxplot(vels)
-    ax8.set_title("Average Angular Velocity vs Angle of Inclination")
-    ax8.set_ylabel("Avg Velocity (body lengths / second)")
-    print('\n')
-    print('**** Average Velocities *****')
-    zero_mean = np.mean(w_0)
-    forty_mean = np.mean(w_45)
-    ninety_mean = np.mean(w_90)
-    print('Average angular velocity at 0 degrees: ', abs(zero_mean))
-    print('Average angular velocity at 45 degrees: ', abs(forty_mean))
-    print('Average angular velocity at 90 degrees: ', abs(ninety_mean))
-
-
-fig1 = plt.figure()
-velocity_plot(fig1)
-plt.show()

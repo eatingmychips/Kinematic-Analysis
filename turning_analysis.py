@@ -8,7 +8,7 @@ from scipy import signal
 from analysis import *
 import statistics as stat
 from os import listdir
-
+import scipy.ndimage
 
 
 
@@ -18,6 +18,7 @@ def file_read(file):
     new_column_names = ['coords', 'left1x', 'left1y', 'likelihood', 'left2x', 'left2y', 'likelihood', 'left3x', 'left3y', 'likelihood', 
                     'right1x', 'right1y', 'likelihood', 'right2x', 'right2y', 'likelihood', 'right3x', 'right3y', 'likelihood',
                      'topx', 'topy', 'likelihood', 'middlex', 'middley', 'likelihood', 'bottomx', 'bottomy', 'likelihood' ]
+    
     df.columns = new_column_names
 
     size = range(len(df.get('left1x').to_numpy()))
@@ -183,20 +184,84 @@ def part_rotation(parts):
             part[i][1] = -1*part[i][1]
 
     return parts
+def replace_outliers(data, threshold=3):
+    """
+    Replaces outliers in the data with the median of the non-outliers.
+    :param data: List of data points
+    :param threshold: Z-score threshold to identify outliers
+    :return: Data with outliers replaced
+    """
+    mean = np.mean(data)
+    std_dev = np.std(data)
+    z_scores = [(x - mean) / std_dev for x in data]
+    median = np.median(data)
+    
+    cleaned_data = []
+    for i, z in enumerate(z_scores):
+        if np.abs(z) > threshold:  # Outlier detected
+            # Replace outlier with the median
+            cleaned_data.append(median)
+        else:
+            cleaned_data.append(data[i])
+    return cleaned_data
 
-def heading_angle(parts): 
+def smooth_data(data, alpha):
+    """
+    Smooth the data using a Gaussian filter.
+    :param data: List of data points
+    :param sigma: The standard deviation for Gaussian kernel.
+    :return: Smoothed data
+    """
+    data = pd.Series(data)
+    data = round(data.ewm(alpha, adjust= False).mean(), 3)
+    data.to_list()
+    return data
+
+def cleaned_data(data): 
+    data = replace_outliers(data, 2)
+    data = smooth_data(data, alpha=2)
+    return data
+
+def moving_avg(part):
+    
+        partx = []
+        party = []
+        for i in part: 
+            partx.append(i[0])
+            party.append(i[1])
+        
+        # partx = pd.Series(partx)
+        # party = pd.Series(party)
+        
+        # partx = round(partx.ewm(alpha=0.2, adjust= False).mean(), 100)
+        # partx = partx.tolist()
+
+        # party = round(party.ewm(alpha=0.2, adjust= False).mean(), 100)
+        # party = party.tolist()
+
+        partx = cleaned_data(partx)
+        party = cleaned_data(party)
+
+        smooth_data = []
+        for i in range(len(partx)):
+            smooth_data.append([partx[i], party[i]])
+
+        return smooth_data
+
+def heading_angle(middle,bottom): 
     diff = []
     angle = []
-    middle = parts[7]
-    bottom = parts[8]
     size = range(len(middle))
     for i in size: 
         diff.append(np.subtract(middle[i], bottom[i]))
-        angle.append(180+180/np.pi*np.arctan2(diff[i][1], diff[i][0]))
+        angle.append(180/np.pi*np.arctan2(diff[i][1], diff[i][0]))
+    angle = np.unwrap(np.radians(angle))
+    angle = np.degrees(angle)
     angle = pd.Series(angle)
-    angle = round(angle.ewm(alpha = 0.1, adjust= False).mean(), 3)
+    angle = round(angle.ewm(alpha = 0.05, adjust= False).mean(), 3)
     angle = angle.tolist()   
     return angle 
+
 
 def ang_vel(angle):
     rot_speed = []
@@ -262,7 +327,7 @@ def turning(angle,rot_speed):
     turning = angle[begin:last]
     speed = rot_speed[begin:last]
 
-    return turning, speed
+    return [begin, last]
 
 
 def body_vel(middle):
@@ -283,3 +348,21 @@ def body_vel(middle):
 
 def turn_distance(turning_angles):
     return abs(turning_angles[0] - turning_angles[-1])
+
+def leg_abs_velocity(part):
+    vel =[]
+    rawvel = []
+    size = range(len(part))
+    for i in size:
+        if i > 0: 
+            delta = np.subtract(part[i], part[i-2])
+            norm = np.linalg.norm(delta)
+            rawvel.append(norm)
+
+    for i in rawvel:
+        if i > 6: 
+            vel.append(1)
+        else: 
+            vel.append(0)
+
+    return vel
