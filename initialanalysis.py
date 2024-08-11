@@ -232,11 +232,12 @@ for file in files:
 
     vel_left1p = abs_vel(left1)
     length = len(vel_left1p)
-    vel_left2p = np.subtract(abs_vel(left2), [0.05]*length)
-    vel_left3p = np.subtract(abs_vel(left3), [0.1]*length)
-    vel_right1p = np.subtract(abs_vel(right1), [0.15]*length)
-    vel_right2p = np.subtract(abs_vel(right2), [0.2]*length)
-    vel_right3p = np.subtract(abs_vel(right3), [0.25]*length)
+    print(length)
+    vel_left2p = abs_vel(left2)
+    vel_left3p = abs_vel(left3)
+    vel_right1p = abs_vel(right1)
+    vel_right2p = abs_vel(right2)
+    vel_right3p = abs_vel(right3)
 
     ##### END VELOCITY CALCULATIONS 
 
@@ -249,7 +250,6 @@ for file in files:
     for i in size: 
         diff.append(np.subtract(middle[i], bottom[i])) 
         offset.append(np.arctan2(diff[i][1],diff[i][0]) + np.pi)
-
 
     #Define rotation function to rotate point about an angle
     def rotation(angle, point):
@@ -342,22 +342,34 @@ for file in files:
 
     def gait_vel_plotting(fig):
         ax1 = fig.add_subplot(2,2,2)
-        ax1.hlines(vel_left1p, range(length), range(1, length+1), color = 'red')
-        ax1.hlines(vel_left2p, range(length), range(1, length+1), color = 'blue')
-        ax1.hlines(vel_left3p, range(length), range(1, length+1), color = 'red')
-        ax1.hlines(vel_right1p, range(length), range(1, length+1), color = 'blue')
-        ax1.hlines(vel_right2p, range(length), range(1, length+1), color = 'red')
-        ax1.hlines(vel_right3p, range(length), range(1, length+1), color = 'blue')
+        binary_lists = [vel_left1p, vel_left2p,vel_left3p, 
+                        vel_right1p, vel_right2p, vel_right3p]
+        
+        y_positions = range(len(binary_lists))
+        thickness = 0.8
 
-        #Set Gridlines
-        spacing = 5 # This can be your user specified spacing. 
-        minorLocator = MultipleLocator(spacing)
-        # Set minor tick locations.
-        ax1.xaxis.set_minor_locator(minorLocator)
-        # Set grid to use minor tick locations. 
-        ax1.grid(which = 'minor')
-        ax1.set_ylim(0.7,1.1)
-        #ax1.set_xlim(0,200)
+        for i, binary_list in enumerate(binary_lists):
+        # Loop over each element in the binary list
+            for j, value in enumerate(binary_list):
+                if value == 1:
+                    # Plot a bar if the value is 1
+                    plt.barh(i, 1, left=j, height=thickness, color='black')
+        # ax1.hlines(vel_left1p, range(length), range(1, length+1), color = 'red')
+        # ax1.hlines(vel_left2p, range(length), range(1, length+1), color = 'blue')
+        # ax1.hlines(vel_left3p, range(length), range(1, length+1), color = 'red')
+        # ax1.hlines(vel_right1p, range(length), range(1, length+1), color = 'blue')
+        # ax1.hlines(vel_right2p, range(length), range(1, length+1), color = 'red')
+        # ax1.hlines(vel_right3p, range(length), range(1, length+1), color = 'blue')
+
+        # #Set Gridlines
+        # spacing = 5 # This can be your user specified spacing. 
+        # minorLocator = MultipleLocator(spacing)
+        # # Set minor tick locations.
+        # ax1.xaxis.set_minor_locator(minorLocator)
+        # # Set grid to use minor tick locations. 
+        # ax1.grid(which = 'minor')
+        # ax1.set_ylim(0.7,1.1)
+        # #ax1.set_xlim(0,200)
         ax1.title.set_text('Foot Abs Velocty Vs Time')
 
     def body_vel_plotting(fig, body_velocity): 

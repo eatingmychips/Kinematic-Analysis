@@ -81,9 +81,9 @@ def stat_analysis(files):
 
     return cutoff_list, heading_angles
 
-#w_0 = stat_analysis(zero_degrees)
-#w_45 = stat_analysis(forty_five_degrees)
-w_90 = stat_analysis(ninety_degrees)
+w_0 = stat_analysis(zero_degrees[0:5])
+w_45 = stat_analysis(forty_five_degrees[0:5])
+w_90 = stat_analysis(ninety_degrees[0:5])
 
 
 

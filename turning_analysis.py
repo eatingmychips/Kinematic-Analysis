@@ -184,7 +184,7 @@ def part_rotation(parts):
             part[i][1] = -1*part[i][1]
 
     return parts
-def replace_outliers(data, threshold=3):
+def replace_outliers(data, threshold):
     """
     Replaces outliers in the data with the median of the non-outliers.
     :param data: List of data points
@@ -218,9 +218,35 @@ def smooth_data(data, alpha):
     return data
 
 def cleaned_data(data): 
-    data = replace_outliers(data, 2)
-    data = smooth_data(data, alpha=2)
+    data = replace_outliers(data, 1)
+    data = smooth_data(data, 0.05)
     return data
+
+# def moving_avg(part):
+    
+#         partx = []
+#         party = []
+#         for i in part: 
+#             partx.append(i[0])
+#             party.append(i[1])
+        
+#         # partx = pd.Series(partx)
+#         # party = pd.Series(party)
+        
+#         # partx = round(partx.ewm(alpha=0.2, adjust= False).mean(), 100)
+#         # partx = partx.tolist()
+
+#         # party = round(party.ewm(alpha=0.2, adjust= False).mean(), 100)
+#         # party = party.tolist()
+
+#         partx = cleaned_data(partx)
+#         party = cleaned_data(party)
+
+#         smooth_data = []
+#         for i in range(len(partx)):
+#             smooth_data.append([partx[i], party[i]])
+
+#         return smooth_data
 
 def moving_avg(part):
     
@@ -230,23 +256,22 @@ def moving_avg(part):
             partx.append(i[0])
             party.append(i[1])
         
-        # partx = pd.Series(partx)
-        # party = pd.Series(party)
+        partx = pd.Series(partx)
+        party = pd.Series(party)
         
-        # partx = round(partx.ewm(alpha=0.2, adjust= False).mean(), 100)
-        # partx = partx.tolist()
+        partx = round(partx.ewm(alpha=0.2, adjust= False).mean(), 100)
+        partx = partx.tolist()
 
-        # party = round(party.ewm(alpha=0.2, adjust= False).mean(), 100)
-        # party = party.tolist()
+        party = round(party.ewm(alpha=0.2, adjust= False).mean(), 100)
+        party = party.tolist()
 
-        partx = cleaned_data(partx)
-        party = cleaned_data(party)
 
         smooth_data = []
         for i in range(len(partx)):
             smooth_data.append([partx[i], party[i]])
 
         return smooth_data
+
 
 def heading_angle(middle,bottom): 
     diff = []
@@ -257,9 +282,9 @@ def heading_angle(middle,bottom):
         angle.append(180/np.pi*np.arctan2(diff[i][1], diff[i][0]))
     angle = np.unwrap(np.radians(angle))
     angle = np.degrees(angle)
-    angle = pd.Series(angle)
-    angle = round(angle.ewm(alpha = 0.05, adjust= False).mean(), 3)
-    angle = angle.tolist()   
+    # angle = pd.Series(angle)
+    # angle = round(angle.ewm(alpha = 0.05, adjust= False).mean(), 3)
+    # angle = angle.tolist()   
     return angle 
 
 
@@ -360,7 +385,7 @@ def leg_abs_velocity(part):
             rawvel.append(norm)
 
     for i in rawvel:
-        if i > 6: 
+        if i > 5: 
             vel.append(1)
         else: 
             vel.append(0)

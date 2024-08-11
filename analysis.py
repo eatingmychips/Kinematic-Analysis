@@ -154,6 +154,7 @@ def body_vel(middle):
         if i > 1: 
             delta = np.subtract(middle[i], middle[i-1])
             norm = np.linalg.norm(delta)
+            norm = norm/78*100
             body_v.append(norm)
         
     body_v = pd.Series(body_v)

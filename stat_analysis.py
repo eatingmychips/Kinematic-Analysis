@@ -34,7 +34,7 @@ file45_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240
 
 file90_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysis\movie20240425_B3_90degrees_straight (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
-
+file90_gait = r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90 degrees\movie20240530_B2_90d (2)DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"
 
 
 
@@ -72,7 +72,7 @@ def stat_analysis(files):
         top = moving_avg(parts[6])
         middle = moving_avg(parts[7])
         bottom = moving_avg(parts[8])
-        
+
         ## Calculate avg body velocity and append to vel_avg list##
         body_v = body_vel(middle)
         avg_vel = np.mean(body_v)

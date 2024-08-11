@@ -175,6 +175,12 @@ def rel_analysis(files):
 
 vel, horizontal_spread, cycle_times, vert_spread = rel_analysis(all_files)
 
+def best_fit(pt, x, y, degree): 
+    coefficients = np.polyfit(x, y, degree)
+    polynomial = np.poly1d(coefficients)
+    x_sorted = np.sort(x)
+    best_fit_line = polynomial(x_sorted)
+    pt.plot(x_sorted, best_fit_line, color = 'red', label=f'{degree}-degree Polynomial Fit')
 
 
 def horizontal_spread_plot(fig):
@@ -183,36 +189,42 @@ def horizontal_spread_plot(fig):
     ax1.set_title("Leg: Left1, Velocity vs Horizontal Spread")
     ax1.set_xlabel("Horizontal Spread")
     ax1.set_ylabel("Velocity")
+    best_fit(ax1, horizontal_spread[0], vel, 1)
 
     ax2 = fig.add_subplot(2,3,2)
     ax2.scatter(horizontal_spread[1], vel)
     ax2.set_title("Leg: Left2, Velocity vs Horizontal Spread")
     ax2.set_xlabel("Horizontal Spread")
     ax2.set_ylabel("Velocity")
+    best_fit(ax2, horizontal_spread[1], vel, 1)
 
     ax3 = fig.add_subplot(2,3,3)
     ax3.scatter(horizontal_spread[2], vel)
     ax3.set_title("Leg: Left3, Velocity vs Horizontal Spread")
     ax3.set_xlabel("Horizontal Spread")
     ax3.set_ylabel("Velocity")
+    best_fit(ax3, horizontal_spread[2], vel, 1)
 
     ax4 = fig.add_subplot(2,3,4)
     ax4.scatter(horizontal_spread[3], vel)
     ax4.set_title("Leg: Right1, Velocity vs Horizontal Spread")
     ax4.set_xlabel("Horizontal Spread")
     ax4.set_ylabel("Velocity")
+    best_fit(ax4, horizontal_spread[3], vel, 1)
 
     ax5 = fig.add_subplot(2,3,5)
     ax5.scatter(horizontal_spread[4], vel)
     ax5.set_title("Leg: Right2, Velocity vs Horizontal Spread")
     ax5.set_xlabel("Horizontal Spread")
     ax5.set_ylabel("Velocity")
+    best_fit(ax5, horizontal_spread[4], vel, 1)
 
     ax6 = fig.add_subplot(2,3,6)
     ax6.scatter(horizontal_spread[5], vel)
     ax6.set_title("Leg: RIght3, Velocity vs Horizontal Spread")
     ax6.set_xlabel("Horizontal Spread")
     ax6.set_ylabel("Velocity")
+    best_fit(ax6, horizontal_spread[5], vel, 1)
 
 def time_plot(fig): 
     ax7 = fig.add_subplot(2,3,1)
@@ -220,42 +232,42 @@ def time_plot(fig):
     ax7.set_title("Leg: Left1, Velocity vs Gait cycle time")
     ax7.set_xlabel("Horizontal Spread")
     ax7.set_ylabel("Velocity")
-
+    best_fit(ax7, cycle_times[0], vel, 1)
 
     ax8 = fig.add_subplot(2,3,2)
     ax8.scatter(cycle_times[1], vel)
     ax8.set_title("Leg: Left2, Velocity vs Gait cycle time")
     ax8.set_xlabel("Horizontal Spread")
     ax8.set_ylabel("Velocity")
-
+    best_fit(ax8, cycle_times[1], vel, 1)
 
     ax9 = fig.add_subplot(2,3,3)
     ax9.scatter(cycle_times[2], vel)
     ax9.set_title("Leg: Left3, Velocity vs Gait cycle time")
     ax9.set_xlabel("Horizontal Spread")
     ax9.set_ylabel("Velocity")
-
+    best_fit(ax9, cycle_times[2], vel, 1)
 
     ax10 = fig.add_subplot(2,3,4)
     ax10.scatter(cycle_times[3], vel)
     ax10.set_title("Leg: Right1, Velocity vs Gait cycle time")
     ax10.set_xlabel("Horizontal Spread")
     ax10.set_ylabel("Velocity")
-
+    best_fit(ax10, cycle_times[3], vel, 1)
 
     ax11 = fig.add_subplot(2,3,5)
     ax11.scatter(cycle_times[4], vel)
     ax11.set_title("Leg: Right2, Velocity vs Gait cycle time")
     ax11.set_xlabel("Horizontal Spread")
     ax11.set_ylabel("Velocity")
-
+    best_fit(ax11, cycle_times[4], vel, 1)
 
     ax12 = fig.add_subplot(2,3,6)
     ax12.scatter(cycle_times[5], vel)
     ax12.set_title("Leg: Right3, Velocity vs Gait cycle time")
     ax12.set_xlabel("Horizontal Spread")
     ax12.set_ylabel("Velocity")
-
+    best_fit(ax12, cycle_times[5], vel, 1)
 
 def vert_spread_plot(fig):
     ax13 = fig.add_subplot(2,3,1)
@@ -263,36 +275,42 @@ def vert_spread_plot(fig):
     ax13.set_title("Leg: Left1, Velocity vs Vertical Spread")
     ax13.set_xlabel("Vertical Spread")
     ax13.set_ylabel("Velocity")
+    best_fit(ax13, vert_spread[0], vel, 1)
 
     ax14 = fig.add_subplot(2,3,2)
     ax14.scatter(vert_spread[1], vel)
     ax14.set_title("Leg: Left2, Velocity vs Vertical Spread")
     ax14.set_xlabel("Vertical Spread")
     ax14.set_ylabel("Velocity")
+    best_fit(ax14, vert_spread[1], vel, 1)
 
     ax15 = fig.add_subplot(2,3,3)
     ax15.scatter(vert_spread[2], vel)
     ax15.set_title("Leg: Left3, Velocity vs Vertical Spread")
     ax15.set_xlabel("Vertical Spread")
     ax15.set_ylabel("Velocity")
+    best_fit(ax15, vert_spread[2], vel, 1)
 
     ax16 = fig.add_subplot(2,3,4)
     ax16.scatter(vert_spread[3], vel)
     ax16.set_title("Leg: Right1, Velocity vs Vertical Spread")
     ax16.set_xlabel("Vertical Spread")
     ax16.set_ylabel("Velocity")
+    best_fit(ax16, vert_spread[3], vel, 1)
 
     ax17 = fig.add_subplot(2,3,5)
     ax17.scatter(vert_spread[4], vel)
     ax17.set_title("Leg: Right2, Velocity vs Vertical Spread")
     ax17.set_xlabel("Vertical Spread")
     ax17.set_ylabel("Velocity")
+    best_fit(ax17, vert_spread[4], vel, 1)
 
     ax18 = fig.add_subplot(2,3,6)
     ax18.scatter(vert_spread[5], vel)
     ax18.set_title("Leg: RIght3, Velocity vs Vertical Spread")
     ax18.set_xlabel("Vertical Spread")
     ax18.set_ylabel("Velocity") 
+    best_fit(ax18, vert_spread[5], vel, 1)
 
 
 fig1 = plt.figure()
