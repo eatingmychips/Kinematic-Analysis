@@ -491,10 +491,55 @@ ax7.set_facecolor('black')
 
 plt.show()
 
+fig5 = plt.figure()
 
+gait_diagram_0 = gait_diagram(file0_gait)
+gait_diagram_45 = gait_diagram(file45_gait)
+gait_diagram_90 = gait_diagram(file90_gait)
+row_labels = ['left1', 'left2', 'left3', 'right1', 'right2', 'right3']
+y_positions = range(len(gait_diagram_0))
 
+thickness = 0.9
+ax1 = fig5.add_subplot(3,1,1)
+ax1.set_title('0 degrees gait diagram')
+for i, leg_velocity in enumerate(gait_diagram_0):
+# Loop over each element in the binary list
+    for j, value in enumerate(leg_velocity):
+        if value == 1:
+            # Plot a bar if the value is 1
+            ax1.barh(i, 1, left=j, height=thickness, color='black')
 
+ax1.set_xlim(5,165)
+ax1.set_yticks(y_positions)
+ax1.set_yticklabels(row_labels)
 
+ax2 = fig5.add_subplot(3,1,2)
+ax2.set_title('45 Degrees Gait Diagram')
+for i, leg_velocity in enumerate(gait_diagram_45):
+# Loop over each element in the binary list
+    for j, value in enumerate(leg_velocity):
+        if value == 1:
+            # Plot a bar if the value is 1
+            ax2.barh(i, 1, left=j, height=thickness, color='black')
+
+ax2.set_xlim(5,165)
+ax2.set_yticks(y_positions)
+ax2.set_yticklabels(row_labels)
+
+ax3 = fig5.add_subplot(3,1,3)
+ax3.set_title('90 Degrees Gait Diagram')
+for i, leg_velocity in enumerate(gait_diagram_90):
+# Loop over each element in the binary list
+    for j, value in enumerate(leg_velocity):
+        if value == 1:
+            # Plot a bar if the value is 1
+            ax3.barh(i, 1, left=j, height=thickness, color='black')
+
+ax3.set_xlim(5,165)
+ax3.set_yticks(y_positions)
+ax3.set_yticklabels(row_labels)
+
+plt.show()
 
 
 

@@ -201,11 +201,11 @@ def leg_time(vel):
         elif key == 0:
             stand.append(len(list(iter)))
 
-    stand = [x for x in stand if 3 < x < 90]
-    swing = [x for x in swing if 3 < x ]
+    stand = [x for x in stand if x < 90]
+    swing = [x for x in swing if x < 90]
     gait_time = (len(stand) + len(swing))*1/100
-    avg_swing = np.mean(swing)
-    avg_stand = np.mean(stand)
+    avg_swing = np.nanmean(swing)
+    avg_stand = np.nanmean(stand)
     gait_time = (avg_swing + avg_stand)*1/100
     
     gait = [avg_stand/(avg_stand+avg_swing)*100, avg_swing/(avg_stand + avg_swing)*100]
@@ -326,3 +326,17 @@ def gait_phase_plotting(file):
 
     return left1_1, left2_1, left3_1, right1_1, right2_1, right3_1
 
+
+def gait_diagram(file): 
+    parts = file_read(file)
+    left1 = moving_avg(parts[0])
+    left2 = moving_avg(parts[1])
+    left3 = moving_avg(parts[2])
+    right1 = moving_avg(parts[3])
+    right2 = moving_avg(parts[4])
+    right3 = moving_avg(parts[5])
+
+    leg_velocity = [leg_abs_velocity(left1), leg_abs_velocity(left2), leg_abs_velocity(left3),
+                        leg_abs_velocity(right1), leg_abs_velocity(right2), leg_abs_velocity(right3)]
+
+    return(leg_velocity)
