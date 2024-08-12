@@ -26,9 +26,9 @@ forty_five_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFin
 ninety_degrees = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90degreesTurning\\"+x 
                   for x in find_csv_filenames(r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\90degreesTurning")]
 
-understanding = [r"C:\Users\lachl\OneDrive\Thesis\Data\KinematicAnalysisFinalData\45degreesTurning\\B3_45degrees_turning_4DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"]
+understanding = [r"C:\Users\lachl\OneDrive\Thesis\Data\TurningData\B4_0degrees_turning_1DLC_resnet50_KinematicAnalysisDLCApr24shuffle1_100000.csv"]
 
-def stat_analysis(files): 
+def stat_analysis(files, degrees): 
     heading_angles = []
     rotational_speed = []
     
@@ -47,14 +47,15 @@ def stat_analysis(files):
         print(len(middle))
         print(len(left1))
         #Gather the list of heading angles
-        heading_angles.append(heading_angle(middle, bottom))
-        print(len(heading_angle(middle, bottom)))
+        heading = heading_angle(middle,bottom)
+        heading_angles.append(heading)
+        
         #Gather the list of rotational speeds
-        rotational_speed.append(ang_vel(heading_angle(middle,bottom)))
+        rotational_speed.append(ang_vel(heading))
 
         
         ##### MAYBE INSERT GETTING BEFORE AND AFTER  
-        startstop = turning(heading_angle(middle, bottom), rotational_speed)
+        startstop = turning(heading, rotational_speed)
         cutoff_list.append(startstop)
 
         leg_velocity = [leg_abs_velocity(left1), leg_abs_velocity(left2), leg_abs_velocity(left3),
@@ -63,27 +64,41 @@ def stat_analysis(files):
         #turn_distance_comb.append(turn_distance(turning_angles))
         #Plot gait pattern as swing stand over turn 
         #Plot leg swing scattern. 
+        direction = turn_direction(heading)
 
+        #### Plotting for heading angle #####
         fig1 = plt.figure()
         ax1 = fig1.add_subplot(2,1,1)
-        ax1.plot(heading_angle(middle, bottom))
+        ax1.plot(heading)
+        ax1.set_title(f"Heading Angle for {direction}, {degrees}")
         thickness = 0.9
+        #### End Plotting for heading angle 
 
+
+        #### Plotting for gait diagram ####
         ax2 = fig1.add_subplot(2,1,2)
+        ax2.set_title(f"Gait diagram for {direction}, {degrees}")
+        row_labels = ['left1', 'left2', 'left3', 'right1', 'right2', 'right3']
+        y_positions = range(len(leg_velocity))
         for i, leg_velocity in enumerate(leg_velocity):
         # Loop over each element in the binary list
             for j, value in enumerate(leg_velocity):
                 if value == 1:
                     # Plot a bar if the value is 1
                     ax2.barh(i, 1, left=j, height=thickness, color='black')
-        
+        ax2.set_yticks(y_positions)
+        ax2.set_yticklabels(row_labels)
+        #### End plotting for gait diagram ####
+
+
+
         plt.show()
 
     return cutoff_list, heading_angles
 
-w_0 = stat_analysis(zero_degrees[0:5])
-w_45 = stat_analysis(forty_five_degrees[0:5])
-w_90 = stat_analysis(ninety_degrees[0:5])
+w_0 = stat_analysis(understanding, "0 Degrees")
+w_45 = stat_analysis(forty_five_degrees, "45 Degrees")
+w_90 = stat_analysis(ninety_degrees, "90 Degrees")
 
 
 

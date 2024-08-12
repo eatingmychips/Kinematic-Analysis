@@ -391,3 +391,16 @@ def leg_abs_velocity(part):
             vel.append(0)
 
     return vel
+
+
+def turn_direction(heading_angles): 
+    start = heading_angles[0]
+    end = heading_angles[-1]
+    diff = start - end 
+    print(diff)
+
+    if end > start: 
+        return "Right Turn"
+
+    if end < start: 
+        return "Left Turn"
