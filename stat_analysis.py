@@ -7,6 +7,7 @@ from matplotlib.ticker import MultipleLocator
 from scipy import signal
 from analysis import *
 import statistics as stat
+import matplotlib.patches as mpatches
 from os import listdir
 
 
@@ -278,6 +279,8 @@ def velocity_plot(fig):
     ax8.boxplot(vels)
     ax8.set_title("Average Velocity vs Angle of Inclination")
     ax8.set_ylabel("Avg Velocity (body lengths / second)")
+    label = ["0 degrees", "45 degrees", "90 degrees"]
+    ax8.set_xticklabels(label)
     print('\n')
     print('**** Average Velocities *****')
     zero_mean = np.mean(vel_0)
@@ -299,6 +302,7 @@ def time_plot(fig):
     ax9.boxplot(times)
     ax9.set_ylabel("Gait Cycle Time (s)")
     ax9.set_title("Gait Cycle Time (s) vs Angle of inclination")
+
     
     print("Average gait cycle time for 0 degrees: ", np.mean(time_0), "\n", "Average gait cycle time for 45 degrees: ", np.mean(time_45), 
           "\n", "Average gait cycle time for 90 degrees: ", np.mean(time_90))
@@ -313,6 +317,7 @@ def leg_time_plot(fig):
     ax9.set_title("Gait swing time at 0 degrees")
     ax9.set_ylim(0,1)
     ax9.set_ylabel("Time (seconds)")
+
 
     ax10 = fig.add_subplot(2,2,2)
     ax10.set_xticklabels(feet_label)
@@ -343,59 +348,71 @@ def stand_plot(fig):
 
 
     ax3 = fig.add_subplot(2,2,1)
-    a1 = ax3.barh("Left 1", zero_stands[0], color = 'white', edgecolor = 'black')
-    a2 = ax3.barh("Left 1", zero_swings[0], left = zero_stands[0], color = 'black', edgecolor = 'black')
-    ax3.barh("Left 2", zero_stands[1], color = 'black', edgecolor = 'black')
-    ax3.barh("Left 2", zero_swings[1], left = zero_stands[1], color = 'white', edgecolor = 'black')
-    ax3.barh("Left 3", zero_stands[2], color = 'white', edgecolor = 'black')
-    ax3.barh("Left 3", zero_swings[2], left = zero_stands[2], color = 'black', edgecolor = 'black')
-    ax3.barh("Right 1", zero_stands[3], color = 'black', edgecolor = 'black')
-    ax3.barh("Right 1", zero_swings[3], left = zero_stands[3], color = 'white', edgecolor = 'black')
-    ax3.barh("Right 2", zero_stands[4], color = 'white', edgecolor = 'black')
-    ax3.barh("Right 2", zero_swings[4], left = zero_stands[4], color = 'black', edgecolor = 'black')
-    ax3.barh("Right 3", zero_stands[5], color = 'black', edgecolor = 'black')
-    ax3.barh("Right 3", zero_swings[5], left = zero_stands[5], color = 'white', edgecolor = 'black')
-    #ax3.legend([a1,a2], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
+    ax3.barh("Left 1", zero_swings[0], color = 'black', edgecolor = 'black')
+    ax3.barh("Left 1", zero_stands[0], left = zero_swings[0], color = 'white', edgecolor = 'black')
+    ax3.barh("Left 2", zero_swings[1], color = 'white', edgecolor = 'black')
+    ax3.barh("Left 2", zero_stands[1], left = zero_swings[1], color = 'black', edgecolor = 'black')
+    ax3.barh("Left 3", zero_swings[2], color = 'black', edgecolor = 'black')
+    ax3.barh("Left 3", zero_stands[2], left = zero_swings[2], color = 'white', edgecolor = 'black')
+    ax3.barh("Right 1", zero_swings[3], color = 'white', edgecolor = 'black')
+    ax3.barh("Right 1", zero_stands[3], left = zero_swings[3], color = 'black', edgecolor = 'black')
+    ax3.barh("Right 2", zero_swings[4], color = 'black', edgecolor = 'black')
+    ax3.barh("Right 2", zero_stands[4], left = zero_swings[4], color = 'white', edgecolor = 'black')
+    ax3.barh("Right 3", zero_swings[5], color = 'white', edgecolor = 'black')
+    ax3.barh("Right 3", zero_stands[5], left = zero_swings[5], color = 'black', edgecolor = 'black')
+    black_patch = mpatches.Patch(color='black', label='Swing')
+    white_patch = mpatches.Patch(facecolor='white', edgecolor='black', label='Stance')
+    # Add the legend to the plot
+    ax3.legend(handles=[black_patch, white_patch], loc='lower right')
+    
     ax3.set_title("Gait Cycle 0 degrees")
     ax3.set_xlabel('Percentage of Total Gait Cycle (%)')
     ax3.set_xlim(-10,110)
     
     ax4 = fig.add_subplot(2,2,2)
-    a3 = ax4.barh("Left 1", forty_stands[0], color = 'white', edgecolor = 'black')
-    a4 = ax4.barh("Left 1", forty_swings[0], left = forty_stands[0], color = 'black', edgecolor = 'black')
-    ax4.barh("Left 2", forty_stands[1], color = 'black', edgecolor = 'black')
-    ax4.barh("Left 2", forty_swings[1], left = forty_stands[1], color = 'white', edgecolor = 'black')
-    ax4.barh("Left 3", forty_stands[2], color = 'white', edgecolor = 'black')
-    ax4.barh("Left 3", forty_swings[2], left = forty_stands[2], color = 'black', edgecolor = 'black')
-    ax4.barh("Right 1", forty_stands[3], color = 'black', edgecolor = 'black')
-    ax4.barh("Right 1", forty_swings[3], left = forty_stands[3], color = 'white', edgecolor = 'black')
-    ax4.barh("Right 2", forty_stands[4], color = 'white', edgecolor = 'black')
-    ax4.barh("Right 2", forty_swings[4], left = forty_stands[4], color = 'black', edgecolor = 'black')
-    ax4.barh("Right 3", forty_stands[5], color = 'black', edgecolor = 'black')
-    ax4.barh("Right 3", forty_swings[5], left = forty_stands[5], color = 'white', edgecolor = 'black')
+    ax4.barh("Left 1", forty_stands[0], color = 'black', edgecolor = 'black')
+    ax4.barh("Left 1", forty_swings[0], left = forty_stands[0], color = 'white', edgecolor = 'black')
+    ax4.barh("Left 2", forty_stands[1], color = 'white', edgecolor = 'black')
+    ax4.barh("Left 2", forty_swings[1], left = forty_stands[1], color = 'black', edgecolor = 'black')
+    ax4.barh("Left 3", forty_stands[2], color = 'black', edgecolor = 'black')
+    ax4.barh("Left 3", forty_swings[2], left = forty_stands[2], color = 'white', edgecolor = 'black')
+    ax4.barh("Right 1", forty_stands[3], color = 'white', edgecolor = 'black')
+    ax4.barh("Right 1", forty_swings[3], left = forty_stands[3], color = 'black', edgecolor = 'black')
+    ax4.barh("Right 2", forty_stands[4], color = 'black', edgecolor = 'black')
+    ax4.barh("Right 2", forty_swings[4], left = forty_stands[4], color = 'white', edgecolor = 'black')
+    ax4.barh("Right 3", forty_stands[5], color = 'white', edgecolor = 'black')
+    ax4.barh("Right 3", forty_swings[5], left = forty_stands[5], color = 'black', edgecolor = 'black')
     ax4.set_title("Gait cycle 45 degrees")
     ax4.set_xlabel('Percentage of Total Gait Cycle (%)')
     #ax4.legend([a3,a4], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
     ax4.set_xlim(-10,110)
+    black_patch = mpatches.Patch(color='black', label='Swing')
+    white_patch = mpatches.Patch(facecolor='white', edgecolor='black', label='Stance')
+    # Add the legend to the plot
+    ax4.legend(handles=[black_patch, white_patch], loc='lower right')
+
 
     ax5 = fig.add_subplot(2,2,3)
-    a5 = ax5.barh("Left 1", ninety_stands[0], color = 'white', edgecolor = 'black')
-    a6 = ax5.barh("Left 1", ninety_swings[0], left = ninety_stands[0], color = 'black', edgecolor = 'black')
-    ax5.barh("Left 2", ninety_stands[1], color = 'black', edgecolor = 'black')
-    ax5.barh("Left 2", ninety_swings[1], left = ninety_stands[1], color = 'white', edgecolor = 'black')
-    ax5.barh("Left 3",ninety_stands[2], color = 'white', edgecolor = 'black')
-    ax5.barh("Left 3", ninety_swings[2], left = ninety_stands[2], color = 'black', edgecolor = 'black')
-    ax5.barh("Right 1", ninety_stands[3], color = 'black', edgecolor = 'black')
-    ax5.barh("Right 1", ninety_swings[3], left = ninety_stands[3], color = 'white', edgecolor = 'black')
-    ax5.barh("Right 2", ninety_stands[4], color = 'white', edgecolor = 'black')
-    ax5.barh("Right 2", ninety_swings[4], left = ninety_stands[4], color = 'black', edgecolor = 'black')
-    ax5.barh("Right 3", ninety_stands[5], color = 'black', edgecolor = 'black')
-    ax5.barh("Right 3", ninety_swings[5], left = ninety_stands[5], color = 'white', edgecolor = 'black')
+    a5 = ax5.barh("Left 1", ninety_stands[0], color = 'black', edgecolor = 'black')
+    a6 = ax5.barh("Left 1", ninety_swings[0], left = ninety_stands[0], color = 'white', edgecolor = 'black')
+    ax5.barh("Left 2", ninety_stands[1], color = 'white', edgecolor = 'black')
+    ax5.barh("Left 2", ninety_swings[1], left = ninety_stands[1], color = 'black', edgecolor = 'black')
+    ax5.barh("Left 3",ninety_stands[2], color = 'black', edgecolor = 'black')
+    ax5.barh("Left 3", ninety_swings[2], left = ninety_stands[2], color = 'white', edgecolor = 'black')
+    ax5.barh("Right 1", ninety_stands[3], color = 'white', edgecolor = 'black')
+    ax5.barh("Right 1", ninety_swings[3], left = ninety_stands[3], color = 'black', edgecolor = 'black')
+    ax5.barh("Right 2", ninety_stands[4], color = 'black', edgecolor = 'black')
+    ax5.barh("Right 2", ninety_swings[4], left = ninety_stands[4], color = 'white', edgecolor = 'black')
+    ax5.barh("Right 3", ninety_stands[5], color = 'white', edgecolor = 'black')
+    ax5.barh("Right 3", ninety_swings[5], left = ninety_stands[5], color = 'black', edgecolor = 'black')
     ax5.set_title("Gait cycle 90 degrees")
     ax5.set_xlabel('Percentage of Total Gait Cycle (%)')
     #ax5.legend([a5,a6], ["Swing Phase", "Stand Phase"], title = "Phase of gait cycle", loc = "upper right")
     ax5.set_xlim(-10,110)
-
+    black_patch = mpatches.Patch(color='black', label='Swing')
+    white_patch = mpatches.Patch(facecolor='white', edgecolor='black', label='Stance')
+    # Add the legend to the plot
+    ax5.legend(handles=[black_patch, white_patch], loc='lower right')
 
     
 
@@ -512,6 +529,10 @@ for i, leg_velocity in enumerate(gait_diagram_0):
 ax1.set_xlim(5,165)
 ax1.set_yticks(y_positions)
 ax1.set_yticklabels(row_labels)
+black_patch = mpatches.Patch(color='black', label='Swing')
+white_patch = mpatches.Patch(facecolor='white', edgecolor='black', label='Stance')
+# Add the legend to the plot
+ax1.legend(handles=[black_patch, white_patch], loc='lower right')
 
 ax2 = fig5.add_subplot(3,1,2)
 ax2.set_title('45 Degrees Gait Diagram')
@@ -525,6 +546,7 @@ for i, leg_velocity in enumerate(gait_diagram_45):
 ax2.set_xlim(5,165)
 ax2.set_yticks(y_positions)
 ax2.set_yticklabels(row_labels)
+ax2.legend(handles=[black_patch, white_patch], loc='lower right')
 
 ax3 = fig5.add_subplot(3,1,3)
 ax3.set_title('90 Degrees Gait Diagram')
@@ -538,6 +560,7 @@ for i, leg_velocity in enumerate(gait_diagram_90):
 ax3.set_xlim(5,165)
 ax3.set_yticks(y_positions)
 ax3.set_yticklabels(row_labels)
+ax3.legend(handles=[black_patch, white_patch], loc='lower right')
 
 plt.show()
 
